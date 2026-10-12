@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PFX HQ</title>
+<meta name="description" content="PFX buys the top 5 pump.fun coins and airdrops them to diamond-hand holders every 45 minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: trading-desk HQ. Epoch dial + thesis up top, then basket → hidden outliers → wallet check → log. */
+:root {
+  --ink: #0c0f14;
+  --panel: #131820;
+  --panel-2: #19202a;
+  --line: #242d39;
+  --fg: #e7ebf2;
+  --muted: #8b97a9;
+  --accent: #8d9cff;
+  --accent-soft: rgba(141, 156, 255, 0.14);
+  --good: #3fd99a;
+  --bad: #ff6f6f;
+  --warn: #f3b94c;
+  --good-soft: rgba(63, 217, 154, 0.13);
+  --bad-soft: rgba(255, 111, 111, 0.13);
+  --warn-soft: rgba(243, 185, 76, 0.14);
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Martian Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 14px;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --ink: #eef1f6; --panel: #ffffff; --panel-2: #f5f7fb; --line: #dbe1ea; --fg: #111722; --muted: #5a6577;
+    --accent: #4253df; --accent-soft: rgba(66, 83, 223, 0.10);
+    --good: #0b9a63; --bad: #d23a3a; --warn: #a86f00;
+    --good-soft: rgba(11, 154, 99, 0.11); --bad-soft: rgba(210, 58, 58, 0.10); --warn-soft: rgba(168, 111, 0, 0.12);
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --ink: #eef1f6; --panel: #ffffff; --panel-2: #f5f7fb; --line: #dbe1ea; --fg: #111722; --muted: #5a6577;
+  --accent: #4253df; --accent-soft: rgba(66, 83, 223, 0.10);
+  --good: #0b9a63; --bad: #d23a3a; --warn: #a86f00;
+  --good-soft: rgba(11, 154, 99, 0.11); --bad-soft: rgba(210, 58, 58, 0.10); --warn-soft: rgba(168, 111, 0, 0.12);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--ink); color: var(--fg);
+  font: 15px/1.55 var(--body);
+  padding-inline: clamp(16px, 4vw, 40px); padding-block: 0 48px;
+}
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 28px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.mono, .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h2 { font-size: 1.35rem; font-weight: 700; }
+.eyebrow { font: 500 0.68rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+
+/* Top bar */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--ink) 88%, transparent); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  margin-inline: calc(-1 * clamp(16px, 4vw, 40px)); padding: 12px clamp(16px, 4vw, 40px);
+}
+.top .bar { max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.brand { display: flex; align-items: baseline; gap: 10px; margin-right: auto; }
+.brand b { font: 800 1.6rem/1 var(--display); letter-spacing: -0.03em; }
+.brand b i { font-style: normal; color: var(--accent); }
+.brand span { color: var(--muted); font-size: 0.85rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--panel); font: 500 0.7rem/1 var(--mono); letter-spacing: 0.04em; white-space: nowrap;
+}
+.chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+.chip.live .dot { background: var(--good); box-shadow: 0 0 0 3px var(--good-soft); }
+.chip.dry .dot { background: var(--warn); }
+.copy {
+  font: 500 0.7rem/1 var(--mono); border: 1px solid var(--line); background: var(--panel-2); color: var(--fg);
+  padding: 6px 10px; border-radius: 8px; cursor: pointer; max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+}
+.copy:hover { border-color: var(--accent); }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 28px; align-items: center; padding-top: 20px; }
+.dial { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: 22px; display: grid; gap: 14px; justify-items: center; }
+.dial svg { width: 100%; max-width: 280px; height: auto; display: block; }
+.dial .center { position: absolute; inset: 22px 22px auto; aspect-ratio: 1; max-width: 280px; margin: 0 auto; display: grid; place-content: center; text-align: center; pointer-events: none; }
+.dial .clock { font: 500 clamp(2.2rem, 7vw, 2.9rem)/1 var(--mono); letter-spacing: -0.04em; }
+.dial .sub { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+.dial .foot { display: flex; justify-content: space-between; width: 100%; font: 400 0.72rem/1.4 var(--mono); color: var(--muted); gap: 12px; }
+.thesis h1 { font-size: clamp(2rem, 4.6vw, 3.4rem); font-weight: 800; line-height: 1.02; letter-spacing: -0.035em; }
+.thesis h1 em { font-style: normal; color: var(--accent); }
+.thesis p { max-width: 62ch; color: var(--muted); font-size: 1.02rem; margin: 16px 0 0; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin-top: 24px; }
+.stat { background: var(--panel); padding: 14px 16px; display: grid; gap: 6px; }
+.stat .v { font: 500 1.25rem/1.1 var(--mono); font-variant-numeric: tabular-nums; }
+
+/* Sections */
+section.block { display: grid; gap: 16px; }
+.head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 16px; }
+.head p { margin: 4px 0 0; color: var(--muted); max-width: 70ch; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); }
+.scroll { overflow-x: auto; }
+
+/* Basket */
+.mix { display: flex; height: 10px; border-radius: 999px; overflow: hidden; gap: 2px; }
+.mix span { display: block; height: 100%; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+th { text-align: left; font: 500 0.66rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); padding: 14px 16px 10px; white-space: nowrap; }
+td { padding: 12px 16px; border-top: 1px solid var(--line); white-space: nowrap; vertical-align: middle; }
+td.num, th.num { text-align: right; }
+.coin { display: flex; align-items: center; gap: 12px; min-width: 180px; }
+.logo { width: 34px; height: 34px; border-radius: 10px; flex: none; display: grid; place-items: center; overflow: hidden; font: 700 0.85rem/1 var(--display); color: var(--ink); }
+.logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.coin b { font-family: var(--display); font-weight: 700; font-size: 1rem; display: block; line-height: 1.15; }
+.coin small { color: var(--muted); font-size: 0.75rem; display: block; max-width: 22ch; overflow: hidden; text-overflow: ellipsis; }
+.w { display: flex; align-items: center; gap: 10px; min-width: 130px; }
+.w .track { flex: 1; height: 6px; border-radius: 999px; background: var(--panel-2); overflow: hidden; }
+.w .track i { display: block; height: 100%; border-radius: 999px; }
+.up { color: var(--good); } .down { color: var(--bad); }
+.rank { font: 500 0.75rem/1 var(--mono); color: var(--muted); width: 28px; }
+
+/* Outliers */
+.reasons { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 7px; font: 500 0.7rem/1.2 var(--mono); background: var(--bad-soft); color: var(--bad); white-space: nowrap; }
+.tag b { font-weight: 500; color: var(--fg); }
+.outlier-row td { color: var(--muted); }
+.outlier-row .coin b { color: var(--fg); text-decoration: line-through; text-decoration-color: var(--bad); text-decoration-thickness: 2px; }
+.toggle { font: 600 0.85rem/1 var(--body); color: var(--fg); background: var(--panel-2); border: 1px solid var(--line); padding: 10px 14px; border-radius: 10px; cursor: pointer; }
+.toggle:hover { border-color: var(--accent); }
+.thresholds { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--line); border-radius: var(--r); overflow: hidden; border: 1px solid var(--line); }
+.thresholds div { background: var(--panel); padding: 12px 14px; display: grid; gap: 4px; }
+.thresholds .v { font: 500 0.95rem/1.2 var(--mono); }
+
+/* Checker + rules */
+.split { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 20px; }
+.checker { padding: 20px; display: grid; gap: 14px; align-content: start; }
+form.lookup { display: flex; gap: 8px; flex-wrap: wrap; }
+form.lookup input {
+  flex: 1 1 240px; min-width: 0; font: 400 0.82rem/1 var(--mono); color: var(--fg); background: var(--panel-2);
+  border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+}
+form.lookup input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-soft); }
+.btn { font: 600 0.88rem/1 var(--body); background: var(--accent); color: var(--ink); border: 0; border-radius: 10px; padding: 12px 18px; cursor: pointer; }
+.btn:hover { filter: brightness(1.08); }
+.examples { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.8rem; color: var(--muted); }
+.examples button { font: 500 0.72rem/1 var(--mono); background: transparent; color: var(--fg); border: 1px dashed var(--line); border-radius: 999px; padding: 6px 10px; cursor: pointer; }
+.examples button:hover { border-color: var(--accent); color: var(--accent); }
+.result { border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 10px; background: var(--panel-2); }
+.result .row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; justify-content: space-between; }
+.pill { display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border-radius: 999px; font: 600 0.78rem/1 var(--body); }
+.pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.pill.good { background: var(--good-soft); color: var(--good); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.idle { background: var(--panel); color: var(--muted); border: 1px solid var(--line); }
+.kv { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.kv div { display: grid; gap: 3px; }
+.kv .v { font: 500 0.9rem/1.2 var(--mono); }
+.example-flag { font: 500 0.62rem/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--warn); border: 1px solid var(--warn); border-radius: 5px; padding: 3px 6px; }
+.rules { padding: 20px; display: grid; gap: 12px; align-content: start; }
+.rules ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.rules li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; }
+.rules li svg { margin-top: 3px; }
+.rules li b { font-weight: 600; }
+.rules li span { color: var(--muted); display: block; font-size: 0.88rem; }
+
+/* Log */
+.chart { padding: 18px 18px 8px; }
+.chart svg { width: 100%; height: auto; display: block; }
+.legend { display: flex; gap: 16px; font: 400 0.72rem/1 var(--mono); color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.empty { padding: 28px; text-align: center; color: var(--muted); }
+
+/* Pipeline */
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; counter-reset: step; }
+.step { padding: 18px; display: grid; gap: 8px; align-content: start; position: relative; }
+.step .n { font: 500 0.7rem/1 var(--mono); color: var(--accent); }
+.step h3 { font-size: 1.05rem; font-weight: 700; }
+.step p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+
+footer { color: var(--muted); font-size: 0.8rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; border-top: 1px solid var(--line); padding-top: 18px; }
+.notice { padding: 14px 16px; border-radius: 12px; background: var(--warn-soft); color: var(--fg); font-size: 0.88rem; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .dial { max-width: 420px; width: 100%; justify-self: center; }
+  .split { grid-template-columns: minmax(0, 1fr); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .brand span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="bar">
+    <div class="brand"><b>PF<i>X</i></b><span>Pump.fun Index · HQ</span></div>
+    <div class="chips">
+      <span class="chip" id="modeChip"><span class="dot"></span><span id="modeText">Connecting</span></span>
+      <span class="chip"><span id="epochChip">Epoch —</span></span>
+      <span class="chip"><span id="updatedChip">Updated —</span></span>
+    </div>
+    <button class="copy" id="mintBtn" type="button" title="Copy PFX contract address">CA: launching soon</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="dial" aria-label="Epoch countdown">
+      <svg viewBox="0 0 280 280" id="dialSvg" role="img" aria-labelledby="dialLabel"><title id="dialLabel">Time left in the current epoch</title></svg>
+      <div class="center">
+        <div class="clock" id="clock">--:--</div>
+        <div class="sub" id="clockSub">until the next airdrop</div>
+      </div>
+      <div class="foot"><span id="snapInfo">Snapshot — of —</span><span id="nextAt">—</span></div>
+    </div>
+    <div class="thesis">
+      <div class="eyebrow">The Pump.fun Index</div>
+      <h1 style="margin-top:10px">Hold PFX. Get the top 5 pump.fun coins <em>every 45 minutes.</em></h1>
+      <p>Each epoch the engine claims PFX creator fees, buys the five strongest pump.fun coins, and airdrops them to every wallet that held through the whole epoch. Sell during an epoch and you forfeit that epoch's drop. Bot-pumped coins are screened out before anything is bought.</p>
+      <div class="stats">
+        <div class="stat"><span class="eyebrow">Airdrops</span><span class="v" id="sDrops">—</span></div>
+        <div class="stat"><span class="eyebrow">Airdropped</span><span class="v" id="sValue">—</span></div>
+        <div class="stat"><span class="eyebrow">Index bought</span><span class="v" id="sBought">—</span></div>
+        <div class="stat"><span class="eyebrow">Eligible wallets</span><span class="v" id="sHolders">—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="notice" id="loadNotice" hidden></div>
+
+  <section class="block" id="basket">
+    <div class="head">
+      <div>
+        <div class="eyebrow">This epoch's basket</div>
+        <h2 style="margin-top:6px">The PFX 5</h2>
+        <p id="basketSub">Top five pump.fun coins by market cap after outliers are removed.</p>
+      </div>
+    </div>
+    <div class="mix" id="mix" aria-hidden="true"></div>
+    <div class="panel scroll">
+      <table>
+        <thead><tr><th></th><th>Coin</th><th>Weight</th><th class="num">Price</th><th class="num">24h</th><th class="num">Market cap</th><th class="num">Liquidity</th><th class="num">Vol 24h</th><th class="num">Buy/Sell</th><th class="num">Mcap/Liq</th><th></th></tr></thead>
+        <tbody id="basketRows"><tr><td colspan="11" class="empty">Loading the basket…</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block" id="outliers">
+    <div class="head">
+      <div>
+        <div class="eyebrow">Hidden outliers</div>
+        <h2 style="margin-top:6px" id="outlierTitle">Outliers hidden</h2>
+        <p>Pump.fun's leaderboard is full of coins with fake numbers: thousands of bot buys and almost no sells, or a billion-dollar market cap sitting on a few million of liquidity. PFX never buys them.</p>
+      </div>
+      <button class="toggle" id="outlierToggle" type="button" aria-expanded="false" aria-controls="outlierTable">Show hidden coins</button>
+    </div>
+    <div class="reasons" id="reasonTags"></div>
+    <div class="panel scroll" id="outlierTable" hidden>
+      <table>
+        <thead><tr><th>Coin</th><th class="num">Claimed mcap</th><th class="num">Liquidity</th><th>Why it's hidden</th></tr></thead>
+        <tbody id="outlierRows"></tbody>
+      </table>
+    </div>
+    <div class="thresholds" id="thresholds"></div>
+  </section>
+
+  <section class="split">
+    <div class="panel checker" id="check">
+      <div>
+        <div class="eyebrow">Wallet check</div>
+        <h2 style="margin-top:6px">Are you in this drop?</h2>
+      </div>
+      <form class="lookup" id="lookup" autocomplete="off">
+        <label for="wallet" class="eyebrow" style="flex-basis:100%">Solana wallet address</label>
+        <input id="wallet" name="wallet" placeholder="Paste your wallet address" spellcheck="false" inputmode="text">
+        <button class="btn" type="submit">Check wallet</button>
+      </form>
+      <div class="examples" id="examples"></div>
+      <div class="result" id="result"></div>
+    </div>
+    <div class="panel rules">
+      <div>
+        <div class="eyebrow">Epoch rules</div>
+        <h2 style="margin-top:6px">Hold through the epoch</h2>
+      </div>
+      <ul id="rulesList"></ul>
+    </div>
+  </section>
+
+  <section class="block" id="log">
+    <div class="head">
+      <div>
+        <div class="eyebrow">Airdrop log</div>
+        <h2 style="margin-top:6px">Every epoch, on chain</h2>
+        <p>USD value bought into the index and airdropped to holders, per epoch.</p>
+      </div>
+      <div class="legend"><span><i style="background:var(--accent)"></i>Bought</span><span><i style="background:var(--good)"></i>Airdropped</span></div>
+    </div>
+    <div class="panel chart" id="chart"></div>
+    <div class="panel scroll">
+      <table>
+        <thead><tr><th>Epoch</th><th>Settled</th><th>Basket</th><th class="num">SOL in</th><th class="num">Airdropped</th><th class="num">Wallets</th><th class="num">Forfeited</th></tr></thead>
+        <tbody id="logRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="head"><div><div class="eyebrow">Mechanics</div><h2 style="margin-top:6px">How an epoch settles</h2></div></div>
+    <div class="steps">
+      <div class="panel step"><span class="n">STEP 1</span><h3>Claim fees</h3><p>The keeper claims PFX's pump.fun creator fees in SOL. A small reserve stays back for gas and token-account rent.</p></div>
+      <div class="panel step"><span class="n">STEP 2</span><h3>Screen and pick</h3><p>About 100 top pump.fun coins are screened. Outliers are hidden and the top five survivors by market cap form the basket.</p></div>
+      <div class="panel step"><span class="n">STEP 3</span><h3>Buy the basket</h3><p>SOL is split by weight and market-bought through Jupiter. It routes across PumpSwap, Raydium and Meteora.</p></div>
+      <div class="panel step"><span class="n">STEP 4</span><h3>Airdrop</h3><p>The final snapshot is compared with every snapshot taken during the epoch. Wallets that never dipped get the five tokens pro rata.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>PFX · Pump.fun Index. Memecoins are extremely volatile. This is not financial advice.</span>
+    <span class="mono" id="footUpdated"></span>
+  </footer>
+</main>
+
+<script>
+(() => {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const SERIES = ["#8d9cff", "#3fd99a", "#f3b94c", "#ff8fb1", "#5ccfe6"];
+
+  const usd = (n) => {
+    if (!Number.isFinite(n)) return "—";
+    const a = Math.abs(n);
+    if (a >= 1e9) return "$" + (n / 1e9).toFixed(2) + "B";
+    if (a >= 1e6) return "$" + (n / 1e6).toFixed(1) + "M";
+    if (a >= 1e3) return "$" + (n / 1e3).toFixed(1) + "K";
+    return "$" + n.toFixed(2);
+  };
+  const price = (n) => {
+    if (!n) return "—";
+    if (n >= 1) return "$" + n.toFixed(3);
+    const d = Math.max(2, -Math.floor(Math.log10(n)) + 2);
+    return "$" + n.toFixed(Math.min(d, 10));
+  };
+  const num = (n, d = 0) => Number.isFinite(n) ? n.toLocaleString(undefined, { maximumFractionDigits: d }) : "—";
+  const pct = (n) => (n > 0 ? "+" : "") + n.toFixed(1) + "%";
+  const ago = (t) => {
+    const s = Math.max(0, Math.round((Date.now() - t) / 1000));
+    if (s < 60) return s + "s ago";
+    if (s < 3600) return Math.round(s / 60) + "m ago";
+    return Math.round(s / 3600) + "h ago";
+  };
+  const short = (a) => a.length > 12 ? a.slice(0, 4) + "…" + a.slice(-4) : a;
+  const clock = (ms) => {
+    const t = Math.max(0, Math.ceil(ms / 1000));
+    return String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0");
+  };
+
+  let data = null;
+  let wallets = null;
+
+  function logo(c, i) {
+    const bg = SERIES[i % SERIES.length];
+    const letter = esc((c.symbol || "?").slice(0, 1).toUpperCase());
+    if (!c.image) return `<span class="logo" style="background:${bg}">${letter}</span>`;
+    return `<span class="logo" style="background:${bg}"><img src="${esc(c.image)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.textContent='${letter}'"></span>`;
+  }
+
+  /* ---------- Dial ---------- */
+  const NS = "http://www.w3.org/2000/svg";
+  function drawDial(progress, snapsTotal, snapsDone) {
+    const svg = $("dialSvg");
+    const cx = 140, cy = 140, r = 118;
+    const C = 2 * Math.PI * r;
+    let html = `<title id="dialLabel">Time left in the current epoch</title>`;
+    html += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--panel-2)" stroke-width="14"/>`;
+    html += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--accent)" stroke-width="14" stroke-linecap="round"
+      stroke-dasharray="${(C * progress).toFixed(2)} ${C.toFixed(2)}" transform="rotate(-90 ${cx} ${cy})"/>`;
+    for (let i = 0; i < snapsTotal; i++) {
+      const a = (i / snapsTotal) * 2 * Math.PI - Math.PI / 2;
+      const x1 = cx + Math.cos(a) * (r - 22), y1 = cy + Math.sin(a) * (r - 22);
+      const x2 = cx + Math.cos(a) * (r - 32), y2 = cy + Math.sin(a) * (r - 32);
+      const on = i < snapsDone;
+      html += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${on ? "var(--fg)" : "var(--line)"}" stroke-width="3" stroke-linecap="round"/>`;
+    }
+    const a = progress * 2 * Math.PI - Math.PI / 2;
+    html += `<circle cx="${(cx + Math.cos(a) * r).toFixed(1)}" cy="${(cy + Math.sin(a) * r).toFixed(1)}" r="9" fill="var(--ink)" stroke="var(--accent)" stroke-width="4"/>`;
+    svg.innerHTML = html;
+  }
+
+  function tick() {
+    const epochMin = data?.epochMinutes ?? 45;
+    const snapMin = data?.rules?.snapshotMinutes ?? 5;
+    const genesis = data?.genesisMs ?? Date.UTC(2026, 0, 1);
+    const len = epochMin * 60000;
+    const now = Date.now();
+    const into = ((now - genesis) % len + len) % len;
+    const left = len - into;
+    const total = Math.round(epochMin / snapMin);
+    const done = Math.min(total, Math.floor(into / (snapMin * 60000)) + 1);
+    drawDial(into / len, total, done);
+    $("clock").textContent = clock(left);
+    $("clockSub").textContent = data ? `until airdrop #${data.epoch}` : "until the next airdrop";
+    $("snapInfo").textContent = `Snapshot ${done} of ${total}`;
+    $("nextAt").textContent = "Drops " + new Date(now + left).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    if (data) $("updatedChip").textContent = "Updated " + ago(data.updatedAt);
+    if (left < 1000) setTimeout(load, 90000);
+  }
+
+  /* ---------- Render ---------- */
+  function render() {
+    const d = data;
+    const live = d.mode === "live";
+    $("modeChip").className = "chip " + (live ? "live" : "dry");
+    $("modeText").textContent = live ? "LIVE" : "DRY RUN";
+    $("epochChip").textContent = "Epoch " + d.epoch;
+    if (d.pfxMint) $("mintBtn").textContent = "CA: " + short(d.pfxMint);
+    $("footUpdated").textContent = "Engine data " + new Date(d.updatedAt).toLocaleString();
+
+    $("sDrops").textContent = num(d.totals?.epochs ?? 0);
+    $("sValue").textContent = usd(d.totals?.valueUsd ?? 0);
+    $("sBought").textContent = usd(d.totals?.boughtUsd ?? 0);
+    const h = d.holders;
+    $("sHolders").textContent = h ? num((h.eligible || 0) + (h.capped || 0)) : "At launch";
+
+    // Basket
+    const idx = d.index || [];
+    $("mix").innerHTML = idx.map((c, i) => `<span style="flex:${c.weight};background:${SERIES[i % 5]}" title="${esc(c.symbol)} ${(c.weight * 100).toFixed(0)}%"></span>`).join("");
+    $("basketSub").textContent = `Top ${idx.length} pump.fun coins by market cap, ${d.rules?.weighting === "mcap" ? "market-cap weighted with a cap" : "equal weighted"}. Picked from ${d.screened} candidates after ${d.hidden?.length ?? 0} outliers were hidden.`;
+    $("basketRows").innerHTML = idx.length ? idx.map((c, i) => {
+      const bs = c.buys24h / Math.max(1, c.sells24h);
+      const back = c.marketCapUsd / Math.max(1, c.liquidityUsd);
+      return `<tr>
+        <td class="rank">${i + 1}</td>
+        <td><div class="coin">${logo(c, i)}<div><b>${esc(c.symbol)}</b><small>${esc(c.name)}</small></div></div></td>
+        <td><div class="w"><span class="track"><i style="width:${(c.weight * 100).toFixed(1)}%;background:${SERIES[i % 5]}"></i></span><span class="num">${(c.weight * 100).toFixed(0)}%</span></div></td>
+        <td class="num">${price(c.priceUsd)}</td>
+        <td class="num ${c.priceChange24h >= 0 ? "up" : "down"}">${pct(c.priceChange24h || 0)}</td>
+        <td class="num">${usd(c.marketCapUsd)}</td>
+        <td class="num">${usd(c.liquidityUsd)}</td>
+        <td class="num">${usd(c.volume24hUsd)}</td>
+        <td class="num">${bs.toFixed(2)}</td>
+        <td class="num">${back.toFixed(0)}×</td>
+        <td><a href="${esc(c.pairUrl)}" target="_blank" rel="noopener">Chart ↗</a></td>
+      </tr>`;
+    }).join("") : `<tr><td colspan="11" class="empty">No coin passed the screen this epoch. SOL stays in the keeper until next epoch.</td></tr>`;
+
+    // Outliers
+    const hidden = d.hidden || [];
+    $("outlierTitle").textContent = `${hidden.length} of ${d.screened} coins hidden`;
+    const counts = {};
+    for (const o of hidden) for (const r of o.reasons) {
+      const k = r.replace(/\s*\(.*\)$/, "");
+      counts[k] = (counts[k] || 0) + 1;
+    }
+    $("reasonTags").innerHTML = Object.entries(counts).sort((a, b) => b[1] - a[1])
+      .map(([k, n]) => `<span class="tag">${esc(k)} <b>${n}</b></span>`).join("");
+    $("outlierRows").innerHTML = hidden.map((o, i) => `<tr class="outlier-row">
+      <td><div class="coin">${logo(o, i)}<div><b>${esc(o.symbol)}</b><small>${esc(o.name)}</small></div></div></td>
+      <td class="num">${usd(o.marketCapUsd)}</td>
+      <td class="num">${usd(o.liquidityUsd)}</td>
+      <td><div class="reasons">${o.reasons.map((r) => `<span class="tag">${esc(r)}</span>`).join("")}</div></td>
+    </tr>`).join("");
+    const f = d.rules?.filters;
+    if (f) {
+      $("thresholds").innerHTML = [
+        ["Minimum age", f.minAgeHours + " h"],
+        ["Minimum liquidity", usd(f.minLiquidityUsd)],
+        ["Minimum 24h volume", usd(f.minVolume24hUsd)],
+        ["Max buy/sell ratio", f.maxBuySellRatio + " : 1"],
+        ["Max mcap / liquidity", f.maxMcapToLiquidity + "×"],
+        ["Robust z cut-off", "z > " + f.madZ],
+      ].map(([k, v]) => `<div><span class="eyebrow">${k}</span><span class="v">${v}</span></div>`).join("");
+    }
+
+    // Rules
+    const r = d.rules || {};
+    const check = `<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="var(--good-soft)"/><path d="M5.5 9.2l2.3 2.3 4.7-4.9" fill="none" stroke="var(--good)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const cross = `<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="var(--bad-soft)"/><path d="M6.2 6.2l5.6 5.6M11.8 6.2l-5.6 5.6" fill="none" stroke="var(--bad)" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+    const rules = [
+      [check, `Hold at least ${num(r.minHoldPfx ?? 10000)} PFX when the epoch starts`, "Your epoch-start balance is what you're paid on."],
+      [cross, "Don't sell or transfer out during the epoch", "If your balance dips below its epoch-start level at any snapshot, you forfeit that epoch's drop."],
+      [check, "Buying more is always fine", "New PFX starts counting from the next epoch, so buying just before the drop gets you nothing extra."],
+      [check, `Snapshots every ${r.snapshotMinutes ?? 5} minutes`, "Selling and buying back between drops is caught."],
+      [check, `Whales capped at ${r.maxWalletPct ?? 3}% of the drop`, "Outlier wallets still get paid, but one wallet can't take the pot. Pools, the bonding curve and program wallets are excluded."],
+    ];
+    $("rulesList").innerHTML = rules.map(([i, b, s]) => `<li>${i}<div><b>${b}</b><span>${s}</span></div></li>`).join("");
+
+    renderLog();
+    renderExamples();
+  }
+
+  function renderLog() {
+    const hist = (data.history || []).slice(-24);
+    const box = $("chart");
+    if (!hist.length) {
+      box.innerHTML = `<div class="empty">The first epoch hasn't settled yet. This chart fills in every ${data.epochMinutes} minutes.</div>`;
+    } else {
+      const W = 720, H = 200, padL = 70, padB = 26, padT = 12;
+      const max = Math.max(1, ...hist.map((x) => Math.max(x.boughtUsd || 0, x.valueUsd || 0)));
+      const nice = (() => { const p = 10 ** Math.floor(Math.log10(max)); return Math.ceil(max / p) * p; })();
+      const bw = (W - padL - 8) / hist.length;
+      const y = (v) => padT + (H - padT - padB) * (1 - v / nice);
+      let s = "";
+      for (let g = 0; g <= 4; g++) {
+        const v = (nice / 4) * g;
+        s += `<line x1="${padL}" x2="${W - 4}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/>`;
+        s += `<text x="${padL - 8}" y="${y(v) + 4}" text-anchor="end" font-family="var(--mono)" font-size="10" fill="var(--muted)">${usd(v)}</text>`;
+      }
+      hist.forEach((x, i) => {
+        const w = Math.max(2, Math.min(bw * 0.34, 22));
+        const x0 = padL + i * bw + bw / 2 - w - 1;
+        s += `<rect x="${x0}" y="${y(x.boughtUsd || 0)}" width="${w}" height="${Math.max(0, y(0) - y(x.boughtUsd || 0))}" rx="2" fill="var(--accent)"><title>Epoch ${x.epoch}: bought ${usd(x.boughtUsd || 0)}</title></rect>`;
+        s += `<rect x="${x0 + w + 2}" y="${y(x.valueUsd || 0)}" width="${w}" height="${Math.max(0, y(0) - y(x.valueUsd || 0))}" rx="2" fill="var(--good)"><title>Epoch ${x.epoch}: airdropped ${usd(x.valueUsd || 0)}</title></rect>`;
+        if (hist.length <= 12 || i % 2 === 0) s += `<text x="${x0 + w}" y="${H - 8}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--muted)">#${x.epoch}</text>`;
+      });
+      box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Bought and airdropped value per epoch">${s}</svg>`;
+    }
+    const drops = (data.history || []).slice(-10).reverse();
+    const last = data.lastDrop;
+    $("logRows").innerHTML = drops.length ? drops.map((x) => {
+      const basket = last && last.epoch === x.epoch ? last.tokens.map((t) => esc(t.symbol)).join(" · ") : "—";
+      return `<tr><td class="num" style="text-align:left">#${x.epoch}</td><td>${new Date(x.at).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}</td>
+        <td>${basket}</td><td class="num">${(x.solSpent || 0).toFixed(3)}</td><td class="num">${usd(x.valueUsd || 0)}</td>
+        <td class="num">${num(x.recipients)}</td><td class="num">${num(x.forfeited)}</td></tr>`;
+    }).join("") : `<tr><td colspan="7" class="empty">No epochs settled yet.</td></tr>`;
+  }
+
+  /* ---------- Wallet check ---------- */
+  const STATUS = {
+    eligible: ["good", "In this drop", "You held through the whole epoch. You'll receive all five basket tokens at the drop."],
+    capped: ["good", "In this drop (capped)", "You're a top holder, so your share is capped at the whale limit. You still receive all five tokens."],
+    sold: ["bad", "Forfeited this epoch", "Your balance dipped below its epoch-start level. Keep holding and you're back in next epoch."],
+    pending: ["warn", "Counts next epoch", "You bought during this epoch. Hold through the next one to be paid."],
+    dust: ["idle", "Below minimum", "Your balance is under the minimum hold. Top up to qualify next epoch."],
+    excluded: ["idle", "Not eligible", "This is a pool, bonding curve or program wallet, so it's excluded from drops."],
+    none: ["idle", "No PFX found", "This wallet doesn't hold PFX right now. Buy and hold through a full epoch to receive the basket."],
+  };
+  const EXAMPLES = {
+    "Diamond hands": { status: "eligible", weightUi: 2450000, sharePct: 0.84, received: [] },
+    "Sold mid-epoch": { status: "sold", weightUi: 0, sharePct: 0, received: [] },
+    "Bought late": { status: "pending", weightUi: 0, sharePct: 0, received: [] },
+  };
+
+  function showResult(entry, label, isExample) {
+    const st = entry ? entry.status : "none";
+    const [tone, title, text] = STATUS[st] || STATUS.none;
+    const basket = (data?.index || []);
+    let receipt = "";
+    if (entry && (st === "eligible" || st === "capped")) {
+      const est = basket.map((c) => c.symbol).join(" · ");
+      receipt = `<div class="kv">
+        <div><span class="eyebrow">Paid on</span><span class="v">${num(entry.weightUi)} PFX</span></div>
+        <div><span class="eyebrow">Share of drop</span><span class="v">${entry.sharePct.toFixed(3)}%</span></div>
+        <div><span class="eyebrow">You'll receive</span><span class="v">${esc(est) || "—"}</span></div>
+      </div>`;
+    }
+    const got = entry?.received?.length
+      ? `<div><span class="eyebrow">Last drop</span><div class="reasons" style="margin-top:6px">${entry.received.map((r) => `<span class="tag" style="background:var(--good-soft);color:var(--good)">${num(r.amountUi, 2)} ${esc(r.symbol)}</span>`).join("")}</div></div>`
+      : "";
+    $("result").innerHTML = `<div class="row"><span class="pill ${tone}">${title}</span>${isExample ? `<span class="example-flag">Example</span>` : `<span class="mono muted" style="font-size:.72rem">${esc(short(label))}</span>`}</div>
+      <div>${text}</div>${receipt}${got}`;
+  }
+
+  function renderExamples() {
+    const ex = $("examples");
+    if (wallets) {
+      ex.innerHTML = `<span>Live standings for epoch ${data.epoch} · ${num(Object.keys(wallets).length)} wallets tracked</span>`;
+      if (!$("result").innerHTML) $("result").innerHTML = `<div class="muted">Paste a wallet to see whether it's in the next drop.</div>`;
+      return;
+    }
+    ex.innerHTML = `<span>Holder tracking starts when PFX launches. Try an example:</span>` +
+      Object.keys(EXAMPLES).map((k) => `<button type="button" data-ex="${esc(k)}">${esc(k)}</button>`).join("");
+    ex.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => showResult(EXAMPLES[b.dataset.ex], b.dataset.ex, true)));
+    if (!$("result").innerHTML) showResult(EXAMPLES["Diamond hands"], "Diamond hands", true);
+  }
+
+  $("lookup").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const addr = $("wallet").value.trim();
+    if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(addr)) {
+      $("result").innerHTML = `<div class="row"><span class="pill bad">Not a Solana address</span></div><div>Paste a base58 wallet address, 32 to 44 characters long.</div>`;
+      return;
+    }
+    if (!wallets) {
+      $("result").innerHTML = `<div class="row"><span class="pill idle">Not tracking yet</span></div><div>Holder snapshots begin once PFX is live. Check back after launch.</div>`;
+      return;
+    }
+    showResult(wallets[addr], addr, false);
+  });
+
+  $("outlierToggle").addEventListener("click", () => {
+    const t = $("outlierTable");
+    t.hidden = !t.hidden;
+    $("outlierToggle").setAttribute("aria-expanded", String(!t.hidden));
+    $("outlierToggle").textContent = t.hidden ? "Show hidden coins" : "Hide them again";
+  });
+
+  $("mintBtn").addEventListener("click", async () => {
+    if (!data?.pfxMint) return;
+    try { await navigator.clipboard.writeText(data.pfxMint); $("mintBtn").textContent = "Copied"; }
+    catch { $("mintBtn").textContent = data.pfxMint; }
+    setTimeout(() => { $("mintBtn").textContent = "CA: " + short(data.pfxMint); }, 1500);
+  });
+
+  /* ---------- Data ---------- */
+  async function load() {
+    try {
+      const res = await fetch("data/latest.json?t=" + Date.now(), { cache: "no-store" });
+      if (!res.ok) throw new Error(res.status);
+      data = await res.json();
+      $("loadNotice").hidden = true;
+    } catch {
+      if (!data) {
+        $("loadNotice").hidden = false;
+        $("loadNotice").textContent = "No engine data yet. Run `npm run index` in engine/ to publish the current basket to web/data/.";
+        $("modeText").textContent = "Offline";
+      }
+      return;
+    }
+    try {
+      const w = await fetch("data/wallets.json?t=" + Date.now(), { cache: "no-store" });
+      wallets = w.ok ? (await w.json()).wallets : null;
+    } catch { wallets = null; }
+    render();
+    tick();
+  }
+
+  tick();
+  load();
+  setInterval(tick, 1000);
+  setInterval(load, 60000);
+})();
+</script>
+</body>
+</html>

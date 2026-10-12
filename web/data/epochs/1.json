@@ -1,0 +1,75 @@
+{
+  "epoch": 1,
+  "at": 1791838201733,
+  "mode": "dry",
+  "bootstrap": false,
+  "feesClaimedSol": 0,
+  "solSpent": 1,
+  "solUsd": 108.60061759197559,
+  "boughtUsd": 108.60061759197559,
+  "recipients": 0,
+  "forfeited": 0,
+  "valueUsd": 0,
+  "tokens": [
+    {
+      "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
+      "symbol": "Fartcoin",
+      "image": "https://ipfs.io/ipfs/QmQr3Fz4h1etNsF7oLGMRHiCzhB5y9a7GjyodnF7zLHK1g",
+      "weight": 0.2,
+      "solSpent": 0.2,
+      "amountUi": 0,
+      "valueUsd": 0,
+      "recipients": 0,
+      "rolledOverUi": 132.926092,
+      "signatures": []
+    },
+    {
+      "mint": "9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump",
+      "symbol": "ANSEM",
+      "image": "https://edge.uxento.io/image/Cx83EqERns2VuiKrkwHegTuECVqZebsNhJ3dCU8CucWG",
+      "weight": 0.2,
+      "solSpent": 0.2,
+      "amountUi": 0,
+      "valueUsd": 0,
+      "recipients": 0,
+      "rolledOverUi": 165.549721,
+      "signatures": []
+    },
+    {
+      "mint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+      "symbol": "arc",
+      "image": "https://ipfs.io/ipfs/QmPDJuEobBcLZihjFCvkWA8c1FiW7UzM2ctFdiffSLxf1d",
+      "weight": 0.2,
+      "solSpent": 0.2,
+      "amountUi": 0,
+      "valueUsd": 0,
+      "recipients": 0,
+      "rolledOverUi": 353.978544,
+      "signatures": []
+    },
+    {
+      "mint": "9PR7nCP9DpcUotnDPVLUBUZKu5WAYkwrCUx9wDnSpump",
+      "symbol": "Ban",
+      "image": "https://ipfs.io/ipfs/QmfKEGFPjMhtMdc6Nud7yvbPS8tiXfbFu2jGMvSUTejF9V",
+      "weight": 0.2,
+      "solSpent": 0.2,
+      "amountUi": 0,
+      "valueUsd": 0,
+      "recipients": 0,
+      "rolledOverUi": 359.962272,
+      "signatures": []
+    },
+    {
+      "mint": "Ai66LHZG9MCzg1WKdawwqduVAXpNDUuV8M3uyq5ppump",
+      "symbol": "CATE",
+      "image": "https://imagedelivery.net/WL1JOIJiM_NAChp6rtB6Cw/coin-image/Ai66LHZG9MCzg1WKdawwqduVAXpNDUuV8M3uyq5ppump",
+      "weight": 0.2,
+      "solSpent": 0.2,
+      "amountUi": 0,
+      "valueUsd": 0,
+      "recipients": 0,
+      "rolledOverUi": 412.459618,
+      "signatures": []
+    }
+  ]
+}

@@ -1,0 +1,1095 @@
+{
+  "project": "PFX",
+  "updatedAt": 1791838201734,
+  "mode": "dry",
+  "epochMinutes": 45,
+  "genesisMs": 1767225600000,
+  "epoch": 2,
+  "nextEpochAt": 1791838800000,
+  "pfxMint": "",
+  "keeper": "",
+  "rules": {
+    "indexSize": 5,
+    "weighting": "equal",
+    "minHoldPfx": 10000,
+    "maxWalletPct": 3,
+    "snapshotMinutes": 5,
+    "filters": {
+      "minAgeHours": 72,
+      "minLiquidityUsd": 250000,
+      "minVolume24hUsd": 50000,
+      "minSells24h": 200,
+      "maxBuySellRatio": 4,
+      "maxMcapToLiquidity": 60,
+      "madZ": 3.5
+    }
+  },
+  "index": [
+    {
+      "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
+      "symbol": "Fartcoin",
+      "name": "Fartcoin",
+      "image": "https://ipfs.io/ipfs/QmQr3Fz4h1etNsF7oLGMRHiCzhB5y9a7GjyodnF7zLHK1g",
+      "createdAt": 1729231506539,
+      "marketCapUsd": 163479092,
+      "liquidityUsd": 8121570.92,
+      "volume24hUsd": 450655.95,
+      "buys24h": 639,
+      "sells24h": 624,
+      "priceUsd": 0.1634,
+      "priceChange24h": -3.57,
+      "dex": "raydium",
+      "pairUrl": "https://dexscreener.com/solana/bzc9nzfmqkxr6fz1dbph7bdf9broyef6pnzesp7v5iiw",
+      "banned": false,
+      "nsfw": false,
+      "weight": 0.2
+    },
+    {
+      "mint": "9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump",
+      "symbol": "ANSEM",
+      "name": "The Black Bull",
+      "image": "https://edge.uxento.io/image/Cx83EqERns2VuiKrkwHegTuECVqZebsNhJ3dCU8CucWG",
+      "createdAt": 1781643948000,
+      "marketCapUsd": 130906972,
+      "liquidityUsd": 2257514.72,
+      "volume24hUsd": 370687.07,
+      "buys24h": 2082,
+      "sells24h": 1749,
+      "priceUsd": 0.1312,
+      "priceChange24h": -5,
+      "dex": "pumpswap",
+      "pairUrl": "https://dexscreener.com/solana/fnzky6x7entq1er3d225dqyt7ybfka4pskbmqhb8l3cc",
+      "banned": false,
+      "nsfw": false,
+      "weight": 0.2
+    },
+    {
+      "mint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+      "symbol": "arc",
+      "name": "AI Rig Complex",
+      "image": "https://ipfs.io/ipfs/QmPDJuEobBcLZihjFCvkWA8c1FiW7UzM2ctFdiffSLxf1d",
+      "createdAt": 1733864953486,
+      "marketCapUsd": 61362143,
+      "liquidityUsd": 4427874.34,
+      "volume24hUsd": 242649.6,
+      "buys24h": 1176,
+      "sells24h": 1507,
+      "priceUsd": 0.06136,
+      "priceChange24h": -1.84,
+      "dex": "raydium",
+      "pairUrl": "https://dexscreener.com/solana/j3b6dvhes2y1cbmtvz5tcwxnegsjjdbukxduvdpoqms7",
+      "banned": false,
+      "nsfw": false,
+      "weight": 0.2
+    },
+    {
+      "mint": "9PR7nCP9DpcUotnDPVLUBUZKu5WAYkwrCUx9wDnSpump",
+      "symbol": "Ban",
+      "name": "Comedian",
+      "image": "https://ipfs.io/ipfs/QmfKEGFPjMhtMdc6Nud7yvbPS8tiXfbFu2jGMvSUTejF9V",
+      "createdAt": 1729865058694,
+      "marketCapUsd": 58088387,
+      "liquidityUsd": 2779287.77,
+      "volume24hUsd": 125550.05,
+      "buys24h": 1399,
+      "sells24h": 1676,
+      "priceUsd": 0.06034,
+      "priceChange24h": -0.89,
+      "dex": "raydium",
+      "pairUrl": "https://dexscreener.com/solana/dmasjxoceol5vtkzbyptpxpo7mkm16fmfnmm3pjfiuha",
+      "banned": false,
+      "nsfw": false,
+      "weight": 0.2
+    },
+    {
+      "mint": "Ai66LHZG9MCzg1WKdawwqduVAXpNDUuV8M3uyq5ppump",
+      "symbol": "CATE",
+      "name": "Catecoin",
+      "image": "https://imagedelivery.net/WL1JOIJiM_NAChp6rtB6Cw/coin-image/Ai66LHZG9MCzg1WKdawwqduVAXpNDUuV8M3uyq5ppump",
+      "createdAt": 1785083078000,
+      "marketCapUsd": 50773870,
+      "liquidityUsd": 2648445.41,
+      "volume24hUsd": 662097.49,
+      "buys24h": 1654,
+      "sells24h": 2099,
+      "priceUsd": 0.05266,
+      "priceChange24h": -3.55,
+      "dex": "pumpswap",
+      "pairUrl": "https://dexscreener.com/solana/hmzvseemtzhhvznw9uwbag85hctmfnkbhzux16cy7ca3",
+      "banned": false,
+      "nsfw": false,
+      "weight": 0.2
+    }
+  ],
+  "hidden": [
+    {
+      "mint": "wjEYRUp7SowPSp3eEGozus9kmCBbzTMVpzd5NdQpump",
+      "symbol": "UDR",
+      "name": "UDR",
+      "image": "https://pbs.twimg.com/media/HT6irEpasAA42To?format=png&name=small",
+      "marketCapUsd": 1457381910,
+      "liquidityUsd": 3342109.54,
+      "reasons": [
+        "wash buys (53:1)",
+        "unbacked mcap (436x liq)"
+      ]
+    },
+    {
+      "mint": "u7XNK4pbxXgWzBwqidDV2TtsXwLqqxtjmGfw1H8pump",
+      "symbol": "USDF",
+      "name": "USDF",
+      "image": "https://pbs.twimg.com/media/HT6f2dSaYAAkVkG?format=png&name=240x240",
+      "marketCapUsd": 706843108,
+      "liquidityUsd": 2326771.03,
+      "reasons": [
+        "too new (67h)",
+        "wash buys (50:1)",
+        "unbacked mcap (304x liq)"
+      ]
+    },
+    {
+      "mint": "NVQufvu3zjfQzNAK6cu5eQ7HjP3XRHJ2Nscy8kbpump",
+      "symbol": "WOTF",
+      "name": "WOTF",
+      "image": "https://pbs.twimg.com/media/HTw16fnbYAA-Fw9?format=png&name=small",
+      "marketCapUsd": 521366469,
+      "liquidityUsd": 1997168.09,
+      "reasons": [
+        "too new (59h)",
+        "wash buys (54:1)",
+        "unbacked mcap (261x liq)"
+      ]
+    },
+    {
+      "mint": "DQMpS7dSJMTZeHPqCEtGYsNVGWFrRbM8499NJBdpump",
+      "symbol": "XRPN",
+      "name": "EVERNORTHXRP",
+      "image": "https://pbs.twimg.com/media/HTkXwfUaEAArtp_?format=png&name=small",
+      "marketCapUsd": 302134999,
+      "liquidityUsd": 1519217.23,
+      "reasons": [
+        "too new (21h)",
+        "wash buys (47:1)",
+        "unbacked mcap (199x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "XJ5V7PNjzSFRAHwx72nm7eQ6VFnx7oZJDspK4n6pump",
+      "symbol": "SARP",
+      "name": "SARP",
+      "image": "https://pbs.twimg.com/media/HTdIGIjagAA2mbg?format=png&name=small",
+      "marketCapUsd": 278864402,
+      "liquidityUsd": 1460420.26,
+      "reasons": [
+        "too new (54h)",
+        "wash buys (55:1)",
+        "unbacked mcap (191x liq)"
+      ]
+    },
+    {
+      "mint": "rAYj8HzA7K6d7SWuQTTA5N7swd1EZCEWNst3ehDpump",
+      "symbol": "EVERNORTHX",
+      "name": "XRPN",
+      "image": "https://pbs.twimg.com/media/HUZpWZJbEAASMLZ?format=png&name=small",
+      "marketCapUsd": 255248085,
+      "liquidityUsd": 1396197.83,
+      "reasons": [
+        "too new (15h)",
+        "wash buys (55:1)",
+        "unbacked mcap (183x liq)"
+      ]
+    },
+    {
+      "mint": "fJBkf2U9FEWg5j4XPJ9Xn95YjKE5JBnX1KNJHZopump",
+      "symbol": "USDP",
+      "name": "USDP",
+      "image": "https://pbs.twimg.com/profile_images/2106375201407766528/K1OqwgJG_400x400.jpg",
+      "marketCapUsd": 230719773,
+      "liquidityUsd": 1327123.69,
+      "reasons": [
+        "too new (16h)",
+        "wash buys (55:1)",
+        "unbacked mcap (174x liq)"
+      ]
+    },
+    {
+      "mint": "J62sjKAAk16afQssxNJS8G2RU9azmCip6VPjMcNcpump",
+      "symbol": "CYBERLEEK",
+      "name": "CYBERLEEK",
+      "image": "https://pbs.twimg.com/media/HUb9KYwbQAAgbr_?format=png&name=small",
+      "marketCapUsd": 199329413,
+      "liquidityUsd": 1233368.75,
+      "reasons": [
+        "too new (6h)",
+        "wash buys (55:1)",
+        "unbacked mcap (162x liq)"
+      ]
+    },
+    {
+      "mint": "2DavYnQ2K53r1FuYfixxpQ2ZModQxZ86BZ8AuSyjpump",
+      "symbol": "UDR",
+      "name": "UDR",
+      "image": "https://pbs.twimg.com/media/HUWKB76agAAPKN9?format=png&name=small",
+      "marketCapUsd": 178762848,
+      "liquidityUsd": 1167990.97,
+      "reasons": [
+        "too new (10h)",
+        "wash buys (18:1)",
+        "unbacked mcap (153x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "HyCsaqoSqCBvudfyFHJ4H2LtKHVHgnw9RFNudiVZpump",
+      "symbol": "EVERNORTHX",
+      "name": "XRPN",
+      "image": "https://pbs.twimg.com/media/HUcYuSIa8AAOsbc?format=png&name=small",
+      "marketCapUsd": 178286255,
+      "liquidityUsd": 1166252.38,
+      "reasons": [
+        "too new (4h)",
+        "wash buys (39:1)",
+        "unbacked mcap (153x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "DuTYU8NxbExyJhSHUeYsKQXcpriTTiPkg9pCWFoDpump",
+      "symbol": "GOIF",
+      "name": "Global Oil Institution Fund",
+      "image": "https://pbs.twimg.com/media/HUXfEm5a8AA-R41?format=png&name=small",
+      "marketCapUsd": 159816925,
+      "liquidityUsd": 1103968.99,
+      "reasons": [
+        "too new (1h)",
+        "almost no sells",
+        "wash buys (36:1)",
+        "unbacked mcap (145x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "AAdeVowMuyT1E8KFwNfMdeRfvZYH7P4AVgiBErc9pump",
+      "symbol": "WOTF",
+      "name": "World Oil Trust Fund🔥",
+      "image": "https://pbs.twimg.com/media/HTU7vgKaUAAoiUo?format=png&name=small",
+      "marketCapUsd": 107069741,
+      "liquidityUsd": 903997.19,
+      "reasons": [
+        "too new (69h)",
+        "unbacked mcap (118x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "TPDxKEVWvwyLjk5AcBiJ46CstjDcHR1xxGA9Xokpump",
+      "symbol": "ATFS",
+      "name": "ATFS",
+      "image": "https://lavender-defeated-mule-864.mypinata.cloud/ipfs/bafkreie2tonuxyogw4a4lj7tesd6siqdjcbeeqkdxpgiqfu3oakqt5vdze",
+      "marketCapUsd": 103014411,
+      "liquidityUsd": 886675.48,
+      "reasons": [
+        "too new (58h)",
+        "unbacked mcap (116x liq)"
+      ]
+    },
+    {
+      "mint": "CvNFbNsbfKfdrBsH9h43EUWxcNVWJ6bnbVH9GTbRpump",
+      "symbol": "GOIF",
+      "name": "Global Oil Institution Fund",
+      "image": "https://pbs.twimg.com/media/HUXfEm5a8AA-R41?format=png&name=small",
+      "marketCapUsd": 88603419,
+      "liquidityUsd": 822322.35,
+      "reasons": [
+        "too new (27h)",
+        "wash buys (20:1)",
+        "unbacked mcap (108x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "Wu5Dfo4MTw94yECZgtaRYu9GGzRCcbj2Qk6UL91pump",
+      "symbol": "USDF",
+      "name": "United States Dividend Fund",
+      "image": "https://pbs.twimg.com/media/HTwu5mEaMAAF5sg?format=png&name=360x360",
+      "marketCapUsd": 73604054,
+      "liquidityUsd": 749094.46,
+      "reasons": [
+        "too new (31h)",
+        "unbacked mcap (98x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "EkzTNA4wLbLLcMknvGQNM2VfJHKVHE7kqsYmu1bXpump",
+      "symbol": "GOIF",
+      "name": "Global Oil Institution Fund",
+      "image": "https://pbs.twimg.com/media/HUXfEm5a8AA-R41?format=png&name=small",
+      "marketCapUsd": 63481517,
+      "liquidityUsd": 695141.14,
+      "reasons": [
+        "too new (3h)",
+        "wash buys (24:1)",
+        "unbacked mcap (91x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "EQawFCwuttS6LVryT4V4iigZBR6RZtJ6Aqv3HL9kpump",
+      "symbol": "SARP",
+      "name": "Strategic American Protocol🔥",
+      "image": "https://ipfs.io/ipfs/bafybeidixzwthk23fyndh3m2tjgbapav5ohnypigbrlnxlc4o475ul2sje",
+      "marketCapUsd": 60265834,
+      "liquidityUsd": 679128.71,
+      "reasons": [
+        "unbacked mcap (89x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "CK5QZvhKCKLo13qFaoRdySWyTtJgYSdofpGoqWtpump",
+      "symbol": "USDP",
+      "name": "United States Dividend Program",
+      "image": "https://pbs.twimg.com/media/HT6sihpboAAMro2?format=png&name=small",
+      "marketCapUsd": 56607545,
+      "liquidityUsd": 754996.99,
+      "reasons": [
+        "unbacked mcap (75x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "AbQwhERAhxyGe1hSKE3FNY5dxwMakz4PbEsYaEUpump",
+      "symbol": "ERC",
+      "name": "Extract",
+      "image": "https://sumo-ipfs.quicknode-ipfs.com/ipfs/QmUjnsgSGbvmQAaygqk35biEKUELWkC8K8GegNLqunakxY",
+      "marketCapUsd": 51547358,
+      "liquidityUsd": 626202,
+      "reasons": [
+        "too new (3h)",
+        "almost no sells",
+        "wash buys (42:1)",
+        "unbacked mcap (82x liq)"
+      ]
+    },
+    {
+      "mint": "DZLM712LtQQmT9Cejm8rxWTiH3CSSQacKkzS9CFepump",
+      "symbol": "USDF",
+      "name": "USDF",
+      "image": "https://ipfs.io/ipfs/bafkreia3fq4ksbtt7d6n2pm57ru6ibdtzl35bfd2ugt73scdnx2lk3ekbe",
+      "marketCapUsd": 49504914,
+      "liquidityUsd": 614947.27,
+      "reasons": [
+        "too new (70h)",
+        "unbacked mcap (81x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "jF9qJBJKS3g5K4cP9mz57eyCWyn2djE7W42sHWCpump",
+      "symbol": "GOIF",
+      "name": "Global Oil Institution Fund",
+      "image": "https://images.pump.fun/coin-image/nZbPjCn4GJcLxrdHWRnMhPt875EyHSNTzhFmD6Dpump?variant=600x600&src=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FHTWF6yoWsAEZ0Bg%3Fformat%3Dpng%26name%3Dsmall",
+      "marketCapUsd": 46853158,
+      "liquidityUsd": 598191.16,
+      "reasons": [
+        "unbacked mcap (78x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "6VZxuW4uBMTqpQwianW8yorme9KnBC5t6K8SpVUVpump",
+      "symbol": "SI276",
+      "name": "Super Intelligence SI276",
+      "image": "https://pbs.twimg.com/media/HUEpQMQaEAAxtNP?format=png&name=small",
+      "marketCapUsd": 46815664,
+      "liquidityUsd": 599547.96,
+      "reasons": [
+        "too new (51h)",
+        "wash buys (106:1)",
+        "unbacked mcap (78x liq)"
+      ]
+    },
+    {
+      "mint": "htME8z3scaxY9jgapm1BTcUAndyNexeSDXY39popump",
+      "symbol": "WOTF",
+      "name": "World Oil Trust Fund🔥",
+      "image": "https://images.pump.fun/coin-image/6DWHBW3R5NE2LUShJRbvDyi9GZ8Hz4EFFRgcfP3apump?variant=600x600&src=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FHTU7vgKaUAAoiUo%3Fformat%3Dpng%26name%3Dsmall",
+      "marketCapUsd": 46123827,
+      "liquidityUsd": 597625.43,
+      "reasons": [
+        "wash buys (5.3:1)",
+        "unbacked mcap (77x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "2KbRLsBVEXdF3YJm35yjvCHr8gC5o1wzRzQpbDhjpump",
+      "symbol": "AODF",
+      "name": "American Oil Dividend Fund",
+      "image": "https://pbs.twimg.com/media/HUGHHEIawAAIQED?format=png&name=small",
+      "marketCapUsd": 41886038,
+      "liquidityUsd": 567811.54,
+      "reasons": [
+        "too new (68h)",
+        "unbacked mcap (74x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "poSFEQHZJ9RujCe9XzfLj1pQo5JSk46Q795iAiUpump",
+      "symbol": "FPES",
+      "name": "Federal Private Equity System",
+      "image": "https://ipfs.io/ipfs/bafkreie26g3nhi5roj5k5lbj2u44oknuieutyo5c37lm7qenrt4la2nkd4",
+      "marketCapUsd": 38264552,
+      "liquidityUsd": 541001.26,
+      "reasons": [
+        "unbacked mcap (71x liq)"
+      ]
+    },
+    {
+      "mint": "opVK6rqXSf9kF9QqAk3SYHVHr1HDKgdXhQBmg1apump",
+      "symbol": "AORP",
+      "name": "American Oil Relief Program",
+      "image": "https://pbs.twimg.com/media/HOyFRdrbAAAi2Ii?format=png&name=small",
+      "marketCapUsd": 36864575,
+      "liquidityUsd": 533984.98,
+      "reasons": [
+        "unbacked mcap (69x liq)"
+      ]
+    },
+    {
+      "mint": "FqhHA7h9aQMnFMfZamcjYsqr7j2Dis1aBsV9Yywpump",
+      "symbol": "XBC",
+      "name": "Xpress Bridge Currency",
+      "image": "https://gateway.irys.xyz/H2dmomno7CH4uV2MQjGPPT3sMHtHqL7HoWrnjMw4AHkN",
+      "marketCapUsd": 35556603,
+      "liquidityUsd": 520415.09,
+      "reasons": [
+        "too new (44h)",
+        "unbacked mcap (68x liq)"
+      ]
+    },
+    {
+      "mint": "5fePPYbUE2yQHD4AfKetsZzVLuz1Hu8K2mSuCBu5pump",
+      "symbol": "UDR",
+      "name": "UNITED DIVIDEND RESERVE",
+      "image": "https://pbs.twimg.com/media/HT6irEpasAA42To?format=png&name=small",
+      "marketCapUsd": 34981410,
+      "liquidityUsd": 516191.3,
+      "reasons": [
+        "too new (40h)",
+        "wash buys (4.1:1)",
+        "unbacked mcap (68x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "u9yBdSLnSnFncyCFjaQ8GKrYrfqJvQCx74BjXNUpump",
+      "symbol": "D O T",
+      "name": "Digital Oil Trust Fund",
+      "image": "https://images.pump.fun/coin-image/SEsLETwGf1zpnr2jzhmCDpUtpwbQUpTk2CzWmHdpump?variant=600x600&src=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FHUAtApWbUAAPNnj%3Fformat%3Dpng%26name%3Dsmall",
+      "marketCapUsd": 34681063,
+      "liquidityUsd": 513581.6,
+      "reasons": [
+        "too new (22h)",
+        "unbacked mcap (68x liq)"
+      ]
+    },
+    {
+      "mint": "4tSrhyh2WSTht6DrtiuWGD5BYDkyNMHFT5c7vxCdpump",
+      "symbol": "ATFS",
+      "name": "American Trust Fund System",
+      "image": "https://ipfs.io/ipfs/bafkreicvrna4xepvccnf35t3m7biz3vn3icpodkqph43kvwwrztcxm5vwq",
+      "marketCapUsd": 34640847,
+      "liquidityUsd": 513821.13,
+      "reasons": [
+        "unbacked mcap (67x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "NDPVWujdkiE1F1MPUBSZ24enhx3yqYhqA4gfsSvpump",
+      "symbol": "UKFLMS",
+      "name": "UK FINANCIAL MOONSHOT TOKEN",
+      "image": "https://cdn.moonshot.com/lFn0i3scwqY897JRBlwzOGf6.jpg",
+      "marketCapUsd": 33042205,
+      "liquidityUsd": 500989.45,
+      "reasons": [
+        "too new (2h)",
+        "almost no sells",
+        "wash buys (40:1)",
+        "unbacked mcap (66x liq)"
+      ]
+    },
+    {
+      "mint": "3PQxZUJoVhQV4Q3fczafyJYvdMrXyHAPPcwwc3mopump",
+      "symbol": "XRPN",
+      "name": "EVERNORTHXRP🔥",
+      "image": "https://pbs.twimg.com/media/HTriHXAaQAESSzo?format=png&name=small",
+      "marketCapUsd": 31059504,
+      "liquidityUsd": 487666.84,
+      "reasons": [
+        "too new (47h)",
+        "unbacked mcap (64x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "osHhXb2fPunnaXidE89i9K97TAA5sG6T8DnYHXnpump",
+      "symbol": "DOTF",
+      "name": "Digital Oil Trust Fund🔥",
+      "image": "https://images.pump.fun/coin-image/2mCHyxwTMn83dZktP1m57kmyA8MjkJYk2uv1Uh7AgHxS?variant=600x600&ipfs=bafybeib7uxdzvn4vvvlaslqdqvqtdbuf4qluh62sqsuzlqkkprcvbt7mly&src=https%3A%2F%2Flavender-defeated-mule-864.mypinata.cloud%2Fipfs%2Fbafybeib7uxdzvn4vvvlaslqdqvqtdbuf4qluh62sqsuzlqkkprcvbt7mly",
+      "marketCapUsd": 30883197,
+      "liquidityUsd": 487881.15,
+      "reasons": [
+        "unbacked mcap (63x liq)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "szV9UMLyLdXLAMQPJriV4H2MPw15Mv2jWRJN3eQpump",
+      "symbol": "SPAX",
+      "name": "SpaxKova🔥",
+      "image": "https://ipfs.io/ipfs/bafkreihxfgzz6u2do3mrp6kuwk6gobxwz53pdx6csxc4ilnanynisikw4u",
+      "marketCapUsd": 23687465,
+      "liquidityUsd": 423877.92,
+      "reasons": [
+        "too new (3h)",
+        "wash buys (8.4:1)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "upiccrBz2ThxvpKPm6VGLx4Zy5XnFrbdAHJV9Unpump",
+      "symbol": "UDR",
+      "name": "UNITED DIVIDEND RESERVE",
+      "image": "https://pbs.twimg.com/media/HT6irEpasAA42To?format=png&name=small",
+      "marketCapUsd": 23649182,
+      "liquidityUsd": 424020,
+      "reasons": [
+        "too new (41h)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "dUb1vxBMwWqut4ecqZuxrSwRUvN2wDY9TZffeyepump",
+      "symbol": "AROS",
+      "name": "AROS",
+      "image": "https://images.pump.fun/coin-image/6BcspWHt7hpvanSZaNnW9asXjkTTZXgL97QafK7pump?variant=600x600&src=https%3A%2F%2Fimages.pump.fun%2Fcoin-image%2FkFWgzdFBd6DERYGSWUrT3ZUUjoREcv14rHJCBSbpump%3Fvariant%3D600x600%26src%3Dhttps%253A%252F%252Fpbs.twimg.com%252Fmedia%252FHTBiPWmbsAMfcMI%253Fformat%253Dpng%2526name%253D360x360",
+      "marketCapUsd": 22985504,
+      "liquidityUsd": 421412.38,
+      "reasons": [
+        "wash buys (5.4:1)"
+      ]
+    },
+    {
+      "mint": "dLRWdoiVnakkqf8MzoAToDo5NLaPnxcgUtZZUbbpump",
+      "symbol": "WSOS",
+      "name": "World Strategic Oil Supply",
+      "image": "https://images.pump.fun/coin-image/oQE3qfYBDx3iTieVUiyUaZMUgTBVtym28M9aP98pump?variant=600x600&src=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FHTk66N1bYAAYy4g%3Fformat%3Dpng%26name%3Dsmall",
+      "marketCapUsd": 22064695,
+      "liquidityUsd": 411899.08,
+      "reasons": [
+        "wash buys (5.3:1)"
+      ]
+    },
+    {
+      "mint": "ieAUwrxo9XYLb76Dtgk4rhMeZ5DLtUXXNewwui9pump",
+      "symbol": "D O T",
+      "name": "DOTF",
+      "image": "https://images.pump.fun/coin-image/SEsLETwGf1zpnr2jzhmCDpUtpwbQUpTk2CzWmHdpump?variant=600x600&src=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FHUAtApWbUAAPNnj%3Fformat%3Dpng%26name%3Dsmall",
+      "marketCapUsd": 20251810,
+      "liquidityUsd": 392839.23,
+      "reasons": [
+        "too new (63h)",
+        "wash buys (5.4:1)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "HznbtSteB1Gy1Qnyu2BHpCmyUZrgumTHTdb2H3opump",
+      "symbol": "GOIF",
+      "name": "GOIF",
+      "image": "https://images.pump.fun/coin-image/D5SdxmGmVsDKMizEZtBagz3ECk3eucwe7LYeAANpump?variant=600x600&src=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FHTbxMqibYAAIvfc%3Fformat%3Dpng%26name%3Dsmall",
+      "marketCapUsd": 19882748,
+      "liquidityUsd": 389498.38,
+      "reasons": [
+        "wash buys (5.4:1)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "J1Wpmugrooj1yMyQKrdZ2vwRXG5rhfx3vTnYE39gpump",
+      "symbol": "WOULD",
+      "name": "would",
+      "image": "https://coin-images.coingecko.com/coins/images/52316/small/QmXJR6Q2zkqpotTY2nMP6k76LykKW7z4tgfQfH1ZUo57Dt.jpeg?1733076468",
+      "marketCapUsd": 19637762,
+      "liquidityUsd": 758945.6,
+      "reasons": [
+        "low volume",
+        "almost no sells"
+      ]
+    },
+    {
+      "mint": "HdMW1zEbM31WrRZNy2kEwnuaM1YaVCRAiD42iNepump",
+      "symbol": "IOF",
+      "name": "Institutional Oil Fund",
+      "image": "https://pbs.twimg.com/media/HUXmTDzaoAADNkk?format=png&name=small",
+      "marketCapUsd": 18662320,
+      "liquidityUsd": 376428.32,
+      "reasons": [
+        "too new (26h)",
+        "wash buys (5.1:1)"
+      ]
+    },
+    {
+      "mint": "KWyGCmYzCmRA6XGLf29HT2HVRuy2T1Rkv5GPzrYpump",
+      "symbol": "UKFLMS",
+      "name": "UK FINANCIAL MOONSHOT TOKEN",
+      "image": "https://images.pump.fun/coin-image/G6jgB9FRAj6AVg7rmNbn5v6trDrcRHQdbCTeQShspump?variant=64x64&ipfs=bafkreihuwqf4w7clfqlklpbmafhtsa6cmx7snakso5bt3k3qvdzzkbm7ky&src=https%3A%2F%2Fipfs.io%2Fipfs%2Fbafkreihuwqf4w7clfqlklpbmafhtsa6cmx7snakso5bt3k3qvdzzkbm7ky",
+      "marketCapUsd": 16355555,
+      "liquidityUsd": 352567.98,
+      "reasons": [
+        "too new (38h)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "CijiVS2cmoguYauqnk6rLGFgoypjVV5WjoVXSu8Hpump",
+      "symbol": "Normie",
+      "name": "The Normie",
+      "image": "https://pbs.twimg.com/media/HUcsVMca4AE2HAt?format=png&name=small",
+      "marketCapUsd": 16132610,
+      "liquidityUsd": 349512.79,
+      "reasons": [
+        "too new (3h)",
+        "almost no sells",
+        "wash buys (26:1)"
+      ]
+    },
+    {
+      "mint": "Cg2NJ99f9VCyjkZftFtYQgZryiPzKfbTUg5g7UZpump",
+      "symbol": "ROAR",
+      "name": "Russian Oil Asset Reserve",
+      "image": "https://images.pump.fun/coin-image/3rARbVrWrihoK94wE6LN38PQtZeUaDPngE9cm4Qkpump?variant=64x64&ipfs=bafkreigto5nr4pyalmdfmhm4qmixhdfkhg2p2lcp7b6uoy7z44yvg37fpa&src=https%3A%2F%2Fipfs.io%2Fipfs%2Fbafkreigto5nr4pyalmdfmhm4qmixhdfkhg2p2lcp7b6uoy7z44yvg37fpa",
+      "marketCapUsd": 16095158,
+      "liquidityUsd": 349731.85,
+      "reasons": [
+        "too new (38h)"
+      ]
+    },
+    {
+      "mint": "CzLSujWBLFsSjncfkh59rUFqvafWcY5tzedWJSuypump",
+      "symbol": "GOAT",
+      "name": "Goatseus Maximus",
+      "image": "https://ipfs.io/ipfs/QmapAq9WtNrtyaDtjZPAHHNYmpSZAQU6HywwvfSWq4dQVV",
+      "marketCapUsd": 16035895,
+      "liquidityUsd": 1571209.66,
+      "reasons": [
+        "low volume"
+      ]
+    },
+    {
+      "mint": "GqXX9MfkURBZ5cFym9HDzqTL7uZkjtCSqLkUSe2xpump",
+      "symbol": "MarsMi",
+      "name": "MarsMi",
+      "image": "https://ipfs.io/ipfs/QmekhQW6aTPWpg2xWWaT5fxmR6eZQBKqf9PZFVmziUPU7D",
+      "marketCapUsd": 15759906,
+      "liquidityUsd": 392705.76,
+      "reasons": [
+        "low volume"
+      ]
+    },
+    {
+      "mint": "Eg2ymQ2aQqjMcibnmTt8erC6Tvk9PVpJZCxvVPJz2agu",
+      "symbol": "PUMPCADE",
+      "name": "PUMPCADE",
+      "image": "https://ipfs.io/ipfs/bafkreidzq3j3vg6grhoqx2ejfwk6tkordeickhbe5uqlcgfo3suj5d5iny",
+      "marketCapUsd": 15651672,
+      "liquidityUsd": 538077.48,
+      "reasons": [
+        "almost no sells"
+      ]
+    },
+    {
+      "mint": "YinH6bpF8PihXhY74gSb2WAvRhyu3xFkDZtDXBbpump",
+      "symbol": "XDC NET",
+      "name": "XDC NETWORK",
+      "image": "https://images.pump.fun/coin-image/Vb3KBFsvX2TMXJvrv53RdTt9CBhHE2fRXvynYNZpump?variant=64x64&src=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FHTt3K0_bMAASPC4%3Fformat%3Dpng%26name%3D360x360",
+      "marketCapUsd": 15633332,
+      "liquidityUsd": 344639.24,
+      "reasons": [
+        "too new (37h)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "Ao9RY3wVZDrppYxJKu38tXuTFNKBFDX8sLgUJyLpump",
+      "symbol": "USOR/SOL",
+      "name": "USOR/SOL",
+      "image": "https://images.pump.fun/coin-image/AgxWRY1eery7SBAa8ZjDSFPqz4EJQCQSMupWarrQpump?variant=64x64&ipfs=bafybeict34art34zon7vzrynpxfrunomnruf4k3rxkkpsjfqvwjnl5im2e&src=https%3A%2F%2Fipfs.io%2Fipfs%2Fbafybeict34art34zon7vzrynpxfrunomnruf4k3rxkkpsjfqvwjnl5im2e",
+      "marketCapUsd": 15627187,
+      "liquidityUsd": 344727.48,
+      "reasons": [
+        "too new (38h)"
+      ]
+    },
+    {
+      "mint": "j1rtNArLnQHfwSF5dZhRaWBsJVYtyXyD33BcJE3pump",
+      "symbol": "UDR",
+      "name": "UNITED DIVIDEND RESERVE",
+      "image": "https://pbs.twimg.com/media/HTbiOkobIAENWrg?format=png&name=small",
+      "marketCapUsd": 15450486,
+      "liquidityUsd": 344413.77,
+      "reasons": [
+        "wash buys (8.5:1)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "4tjw5NNwCk2N2NdG6Mbc7M5HjgCjbYinQXpYirJypump",
+      "symbol": "JEANPHIL",
+      "name": "Jean Phil",
+      "image": "https://pbs.twimg.com/media/HTj5iVGagAANDui?format=png&name=small",
+      "marketCapUsd": 15433871,
+      "liquidityUsd": 342305.87,
+      "reasons": [
+        "too new (49h)",
+        "wash buys (45:1)"
+      ]
+    },
+    {
+      "mint": "KwJVBtoqDh2kXqqRmFdgbTgq6ivApNk9ywqJ4Bspump",
+      "symbol": "XDC NET",
+      "name": "XDC NETWORK",
+      "image": "https://pbs.twimg.com/media/HTt3K0_bMAASPC4?format=png&name=360x360",
+      "marketCapUsd": 14917258,
+      "liquidityUsd": 386072.23,
+      "reasons": [
+        "too new (35h)"
+      ]
+    },
+    {
+      "mint": "83vgWai777s5gaYAZVvZTUyMmdCSGiDrqTFtpiUWpump",
+      "symbol": "GTA",
+      "name": "GTA memes",
+      "image": "https://gmgn.ai/external-res/9526d8b471a2c338d24ab55378533d3f_v2l.webp",
+      "marketCapUsd": 14864918,
+      "liquidityUsd": 335984.82,
+      "reasons": [
+        "too new (28h)",
+        "wash buys (96:1)"
+      ]
+    },
+    {
+      "mint": "3P6WB3hifQ9Z38Ja5qNuaETkgstJUWmP6vf58aYupump",
+      "symbol": "CIGR",
+      "name": "CIGR",
+      "image": "https://ipfs.io/ipfs/QmNshQiux3GoQtFL9894gABC577rm2myzzYZAi2Dz9xe5R",
+      "marketCapUsd": 14647991,
+      "liquidityUsd": 361553.88,
+      "reasons": [
+        "low volume"
+      ]
+    },
+    {
+      "mint": "sgYZrJvAuAMWu2rVPmAMneeAnW8pwg1JqrjXvjhpump",
+      "symbol": "ConConAI",
+      "name": "ConConAI",
+      "image": "https://ipfs.io/ipfs/bafkreicwg7edh7d4gm5gwhiu6eqstizkinb7oevl7bzh5jj4i7zhcbgdre",
+      "marketCapUsd": 13635932,
+      "liquidityUsd": 321536.39,
+      "reasons": [
+        "too new (15h)"
+      ]
+    },
+    {
+      "mint": "2sY7rkMCQyFNcSpHm3fciJf2ptYRg3cYpn4srN6Bpump",
+      "symbol": "IOF",
+      "name": "Institutional Oil Fund",
+      "image": "https://gateway.irys.xyz/TWnGL60xC7xFllUDX9rJUF4ofReLRQZs4DGKOPDLEpY",
+      "marketCapUsd": 12406152,
+      "liquidityUsd": 310321.71,
+      "reasons": [
+        "low volume",
+        "almost no sells",
+        "wash buys (4.1:1)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "LRxbtkvPfpctgR6MS52MAwtobrCCY9KiJgKMmpPpump",
+      "symbol": "GOLD",
+      "name": "Stairway to gold",
+      "image": "https://ipfs.io/ipfs/QmSJ1TW8jNv7yUehGnhmQyB1gaUDdLUBFt6KKtRah4on4R",
+      "marketCapUsd": 11847467,
+      "liquidityUsd": 309658.23,
+      "reasons": [
+        "low volume",
+        "almost no sells",
+        "wash buys (16:1)"
+      ]
+    },
+    {
+      "mint": "1yTgVJDuqPVtaUFR22f3TG2gtgkjQFkLN8ECv7rpump",
+      "symbol": "ANTH",
+      "name": "Anthropic",
+      "image": "https://pbs.twimg.com/media/HUUXvb_aAAABNm3?format=png&name=240x240",
+      "marketCapUsd": 11724666,
+      "liquidityUsd": 298182.04,
+      "reasons": [
+        "too new (42h)"
+      ]
+    },
+    {
+      "mint": "wGa8qyJcGnMSWAaHM3mNwVVTfX3FszgWDsPfyWPpump",
+      "symbol": "USWR",
+      "name": "United States Water Reserve",
+      "image": "https://scarlet-defeated-muskox-784.mypinata.cloud/ipfs/bafkreibubdmveqo6dqco7fohija3w3yorqlq4z4d7gjm4t2i73nimnt77m",
+      "marketCapUsd": 11468970,
+      "liquidityUsd": 295609.25,
+      "reasons": [
+        "too new (59h)"
+      ]
+    },
+    {
+      "mint": "NUxPLVUgCLJYCscuLTddJEo87GJBsJSropPwWJPpump",
+      "symbol": "BTB",
+      "name": "BTB",
+      "image": "https://pbs.twimg.com/media/HUVHAaJaUAAXCT6?format=png&name=small",
+      "marketCapUsd": 11123635,
+      "liquidityUsd": 290546.64,
+      "reasons": [
+        "too new (36h)"
+      ]
+    },
+    {
+      "mint": "g9RxZHXKKeDT5XPy7itgQxjhv9c9epApz6LuWQDpump",
+      "symbol": "USDF",
+      "name": "United States Dividend Fund",
+      "image": "https://pbs.twimg.com/media/HUZMX_eawAAYd7A?format=png&name=small",
+      "marketCapUsd": 10631737,
+      "liquidityUsd": 283673.4,
+      "reasons": [
+        "too new (19h)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "FLYm6hwvTdHCeiAeHLLdmZKU6kjmDTrwRdTvRvKwpump",
+      "symbol": "FPES",
+      "name": "Federal Private Equity System",
+      "image": "https://pbs.twimg.com/media/HUOltcMbkAAsPMF?format=png&name=small",
+      "marketCapUsd": 10473165,
+      "liquidityUsd": 281872.43,
+      "reasons": [
+        "too new (41h)",
+        "wash buys (4.1:1)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "p4SDcJco7qimP9he9TfX2zm8YvurW5Wqtfm9qfmpump",
+      "symbol": "NTDA",
+      "name": "NTDA",
+      "image": "https://ipfs.io/ipfs/bafybeidnkzjynmxcj7z353ud7psa5jhnaidpphetcpks7ji63dvld2os3m",
+      "marketCapUsd": 10446308,
+      "liquidityUsd": 283640.62,
+      "reasons": [
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "YnJFmb5VvwyAchZxKZPB48JfVaRd9uozo1aqEbNpump",
+      "symbol": "SARP",
+      "name": "Strategic American Protocol",
+      "image": "https://pbs.twimg.com/media/HUG1_aRbsAE65rL?format=png&name=small",
+      "marketCapUsd": 10221399,
+      "liquidityUsd": 280169.76,
+      "reasons": [
+        "wash buys (5.5:1)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "aQ2y8TWM9eeBWSksobbhQdAWFKiLHjDef2KUUJGpump",
+      "symbol": "DOTF",
+      "name": "Digital Oil Trust Fund🔥",
+      "image": "https://images.pump.fun/coin-image/2mCHyxwTMn83dZktP1m57kmyA8MjkJYk2uv1Uh7AgHxS?variant=600x600&ipfs=bafybeib7uxdzvn4vvvlaslqdqvqtdbuf4qluh62sqsuzlqkkprcvbt7mly&src=https%3A%2F%2Flavender-defeated-mule-864.mypinata.cloud%2Fipfs%2Fbafybeib7uxdzvn4vvvlaslqdqvqtdbuf4qluh62sqsuzlqkkprcvbt7mly",
+      "marketCapUsd": 10181389,
+      "liquidityUsd": 279518.85,
+      "reasons": [
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "WqxrZALCKQagTUzgWSbfLk4iy77ULXzcapn5eYspump",
+      "symbol": "WOSE",
+      "name": "World Oil Supply Exchange",
+      "image": "https://pbs.twimg.com/media/HT8orW0bAAE-9e8?format=jpg&name=small",
+      "marketCapUsd": 10053409,
+      "liquidityUsd": 279321.2,
+      "reasons": [
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "UEAjbdDHBCcxngYgbUrBJsHq5W9UoN1PzfUMZqrpump",
+      "symbol": "ConConAI",
+      "name": "ConConAI",
+      "image": "https://ipfs.io/ipfs/bafkreicwg7edh7d4gm5gwhiu6eqstizkinb7oevl7bzh5jj4i7zhcbgdre",
+      "marketCapUsd": 10000445,
+      "liquidityUsd": 275213.24,
+      "reasons": [
+        "too new (26h)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "BTr5SwWSKPBrdUzboi2SVr1QvSjmh1caCYUkxsxLpump",
+      "symbol": "WOLF",
+      "name": "Wolf",
+      "image": "https://ipfs.io/ipfs/QmXaRoMTAJ3PSgHkYrKgA9y6bvP5U9DBcvDmXTdvKsYPzY",
+      "marketCapUsd": 9863449,
+      "liquidityUsd": 291599.75,
+      "reasons": [
+        "low volume",
+        "almost no sells"
+      ]
+    },
+    {
+      "mint": "HGu1BUFsV8rv4DVyadFhZrLAoHLeDwZ53xQHJZHwpump",
+      "symbol": "GTA",
+      "name": "GTA memes",
+      "image": "https://gmgn.ai/external-res/9526d8b471a2c338d24ab55378533d3f_v2l.webp",
+      "marketCapUsd": 9689884,
+      "liquidityUsd": 270593.08,
+      "reasons": [
+        "too new (11h)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "TLynKpiiq3wzbCjHV1BrXW2EHyaScSjfaibvggdpump",
+      "symbol": "USDF",
+      "name": "United States Dividend Fund",
+      "image": "https://pbs.twimg.com/media/HUXguHOaQAAZEuU?format=png&name=240x240",
+      "marketCapUsd": 9598105,
+      "liquidityUsd": 269610.97,
+      "reasons": [
+        "too new (27h)",
+        "wash buys (5.1:1)",
+        "copycat ticker"
+      ]
+    },
+    {
+      "mint": "HmjCoarLh5duURfJ333DwfFiPyTCgFT35pRSAoP8pump",
+      "symbol": "TOS",
+      "name": "TokenOS AI",
+      "image": "https://ipfs.io/ipfs/QmWJqo6dm9QZ2HFMjnWUPgDQGEF99ZSsyFVySVMsMQ6UR5",
+      "marketCapUsd": 4490471,
+      "liquidityUsd": 235917.22,
+      "reasons": [
+        "thin liquidity",
+        "low volume",
+        "almost no sells"
+      ]
+    }
+  ],
+  "screened": 99,
+  "holders": null,
+  "lastDrop": {
+    "epoch": 1,
+    "at": 1791838201733,
+    "mode": "dry",
+    "bootstrap": false,
+    "feesClaimedSol": 0,
+    "solSpent": 1,
+    "solUsd": 108.60061759197559,
+    "boughtUsd": 108.60061759197559,
+    "recipients": 0,
+    "forfeited": 0,
+    "valueUsd": 0,
+    "tokens": [
+      {
+        "mint": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
+        "symbol": "Fartcoin",
+        "image": "https://ipfs.io/ipfs/QmQr3Fz4h1etNsF7oLGMRHiCzhB5y9a7GjyodnF7zLHK1g",
+        "weight": 0.2,
+        "solSpent": 0.2,
+        "amountUi": 0,
+        "valueUsd": 0,
+        "recipients": 0,
+        "rolledOverUi": 132.926092,
+        "signatures": []
+      },
+      {
+        "mint": "9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump",
+        "symbol": "ANSEM",
+        "image": "https://edge.uxento.io/image/Cx83EqERns2VuiKrkwHegTuECVqZebsNhJ3dCU8CucWG",
+        "weight": 0.2,
+        "solSpent": 0.2,
+        "amountUi": 0,
+        "valueUsd": 0,
+        "recipients": 0,
+        "rolledOverUi": 165.549721,
+        "signatures": []
+      },
+      {
+        "mint": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+        "symbol": "arc",
+        "image": "https://ipfs.io/ipfs/QmPDJuEobBcLZihjFCvkWA8c1FiW7UzM2ctFdiffSLxf1d",
+        "weight": 0.2,
+        "solSpent": 0.2,
+        "amountUi": 0,
+        "valueUsd": 0,
+        "recipients": 0,
+        "rolledOverUi": 353.978544,
+        "signatures": []
+      },
+      {
+        "mint": "9PR7nCP9DpcUotnDPVLUBUZKu5WAYkwrCUx9wDnSpump",
+        "symbol": "Ban",
+        "image": "https://ipfs.io/ipfs/QmfKEGFPjMhtMdc6Nud7yvbPS8tiXfbFu2jGMvSUTejF9V",
+        "weight": 0.2,
+        "solSpent": 0.2,
+        "amountUi": 0,
+        "valueUsd": 0,
+        "recipients": 0,
+        "rolledOverUi": 359.962272,
+        "signatures": []
+      },
+      {
+        "mint": "Ai66LHZG9MCzg1WKdawwqduVAXpNDUuV8M3uyq5ppump",
+        "symbol": "CATE",
+        "image": "https://imagedelivery.net/WL1JOIJiM_NAChp6rtB6Cw/coin-image/Ai66LHZG9MCzg1WKdawwqduVAXpNDUuV8M3uyq5ppump",
+        "weight": 0.2,
+        "solSpent": 0.2,
+        "amountUi": 0,
+        "valueUsd": 0,
+        "recipients": 0,
+        "rolledOverUi": 412.459618,
+        "signatures": []
+      }
+    ]
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "at": 1791838201733,
+      "valueUsd": 0,
+      "boughtUsd": 108.60061759197559,
+      "recipients": 0,
+      "forfeited": 0,
+      "solSpent": 1
+    }
+  ],
+  "totals": {
+    "epochs": 1,
+    "valueUsd": 0,
+    "boughtUsd": 108.60061759197559,
+    "solSpent": 1
+  }
+}
