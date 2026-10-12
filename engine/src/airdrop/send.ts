@@ -1,4 +1,10 @@
-import { ComputeBudgetProgram, PublicKey, type Connection, type Keypair } from "@solana/web3.js";
+import {
+  ComputeBudgetProgram,
+  PublicKey,
+  type Connection,
+  type Keypair,
+  type TransactionInstruction,
+} from "@solana/web3.js";
 import {
   createAssociatedTokenAccountIdempotentInstruction,
   createTransferCheckedInstruction,
@@ -13,11 +19,40 @@ export interface SendResult {
   failed: Allocation[];
 }
 
+export interface BatchOpts {
+  batch: number;
+  priorityMicroLamports: number;
+}
+
 /**
- * Push `allocations` of one token from the keeper to holders, `batch` recipients
- * per transaction. Each recipient's token account is created if missing
- * (idempotent), so holders never need to do anything to receive.
+ * One airdrop transaction: for each recipient, create their token account if
+ * missing (idempotent, keeper pays rent) and transfer. Holders never need to do
+ * anything to receive.
  */
+export function buildAirdropBatch(
+  payer: PublicKey,
+  mint: PublicKey,
+  programId: PublicKey,
+  decimals: number,
+  chunk: Allocation[],
+  priorityMicroLamports: number,
+): TransactionInstruction[] {
+  const source = getAssociatedTokenAddressSync(mint, payer, true, programId);
+  const ixs = [
+    ComputeBudgetProgram.setComputeUnitLimit({ units: 40_000 * chunk.length + 20_000 }),
+    ComputeBudgetProgram.setComputeUnitPrice({ microLamports: priorityMicroLamports }),
+  ];
+  for (const a of chunk) {
+    const owner = new PublicKey(a.owner);
+    const ata = getAssociatedTokenAddressSync(mint, owner, true, programId);
+    ixs.push(
+      createAssociatedTokenAccountIdempotentInstruction(payer, ata, owner, mint, programId),
+      createTransferCheckedInstruction(source, mint, ata, payer, a.amount, decimals, [], programId),
+    );
+  }
+  return ixs;
+}
+
 export async function sendAirdrop(
   conn: Connection,
   keeper: Keypair,
@@ -25,30 +60,17 @@ export async function sendAirdrop(
   programId: PublicKey,
   decimals: number,
   allocations: Allocation[],
-  opts: { batch: number; priorityMicroLamports: number },
+  opts: BatchOpts,
 ): Promise<SendResult> {
-  const source = getAssociatedTokenAddressSync(mint, keeper.publicKey, true, programId);
   const result: SendResult = { signatures: [], sent: 0n, failed: [] };
-
   for (let i = 0; i < allocations.length; i += opts.batch) {
     const chunk = allocations.slice(i, i + opts.batch);
-    const ixs = [
-      ComputeBudgetProgram.setComputeUnitLimit({ units: 40_000 * chunk.length + 20_000 }),
-      ComputeBudgetProgram.setComputeUnitPrice({ microLamports: opts.priorityMicroLamports }),
-    ];
-    for (const a of chunk) {
-      const owner = new PublicKey(a.owner);
-      const ata = getAssociatedTokenAddressSync(mint, owner, true, programId);
-      ixs.push(
-        createAssociatedTokenAccountIdempotentInstruction(keeper.publicKey, ata, owner, mint, programId),
-        createTransferCheckedInstruction(source, mint, ata, keeper.publicKey, a.amount, decimals, [], programId),
-      );
-    }
+    const ixs = buildAirdropBatch(keeper.publicKey, mint, programId, decimals, chunk, opts.priorityMicroLamports);
     try {
       result.signatures.push(await sendInstructions(conn, keeper, ixs));
       result.sent += chunk.reduce((s, a) => s + a.amount, 0n);
     } catch (err) {
-      console.error(`[airdrop] batch ${i / opts.batch} failed, will roll over:`, (err as Error).message);
+      console.error(`[airdrop] batch ${i / opts.batch} failed, rolls over:`, (err as Error).message);
       result.failed.push(...chunk);
     }
   }

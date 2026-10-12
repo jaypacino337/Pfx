@@ -1,5 +1,11 @@
 import { Connection, PublicKey, type GetProgramAccountsFilter } from "@solana/web3.js";
-import { TOKEN_2022_PROGRAM_ID, getMint } from "@solana/spl-token";
+import {
+  ExtensionType,
+  TOKEN_2022_PROGRAM_ID,
+  getAccountLenForMint,
+  getExtensionTypes,
+  getMint,
+} from "@solana/spl-token";
 import bs58 from "bs58";
 import type { Snapshot } from "./eligibility.js";
 
@@ -7,14 +13,39 @@ export interface MintInfo {
   programId: PublicKey;
   decimals: number;
   supply: bigint;
+  /** Bytes of a holder token account for this mint (165, or more with Token-2022 extensions). */
+  accountLen: number;
+  /** Reasons PFX can't safely buy-and-airdrop this token. Empty means fine. */
+  blockers: string[];
 }
+
+/** Token-2022 features that break a plain push airdrop or let the issuer claw tokens back. */
+const BLOCKING: Partial<Record<ExtensionType, string>> = {
+  [ExtensionType.TransferFeeConfig]: "transfer fee",
+  [ExtensionType.TransferHook]: "transfer hook",
+  [ExtensionType.NonTransferable]: "non-transferable",
+  [ExtensionType.DefaultAccountState]: "accounts start frozen",
+  [ExtensionType.PermanentDelegate]: "permanent delegate",
+  [ExtensionType.PausableConfig]: "pausable",
+  [ExtensionType.ConfidentialTransferMint]: "confidential transfers",
+};
 
 export async function getMintInfo(conn: Connection, mint: PublicKey): Promise<MintInfo> {
   const acct = await conn.getAccountInfo(mint);
   if (!acct) throw new Error(`Mint ${mint.toBase58()} not found`);
   const programId = acct.owner;
   const info = await getMint(conn, mint, "confirmed", programId);
-  return { programId, decimals: info.decimals, supply: info.supply };
+  const blockers = getExtensionTypes(info.tlvData)
+    .map((t) => BLOCKING[t])
+    .filter((x): x is string => Boolean(x));
+  if (info.freezeAuthority) blockers.push("freeze authority set");
+  return {
+    programId,
+    decimals: info.decimals,
+    supply: info.supply,
+    accountLen: getAccountLenForMint(info),
+    blockers,
+  };
 }
 
 /**

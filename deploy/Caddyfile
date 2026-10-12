@@ -1,0 +1,17 @@
+# Serves PFX HQ with automatic HTTPS for $DOMAIN.
+{$DOMAIN:localhost} {
+	root * /srv
+	encode zstd gzip
+
+	# Engine output changes every few minutes; never cache it.
+	header /data/* Cache-Control "no-store"
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Frame-Options DENY
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+
+	file_server
+}

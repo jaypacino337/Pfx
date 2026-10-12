@@ -1,0 +1,39 @@
+# PFX: engine + HQ site. Usage:
+#   cp engine/.env.example engine/.env   # fill it in, keep DRY_RUN=true at first
+#   DOMAIN=pfx.example.com docker compose up -d --build
+services:
+  engine:
+    build: ./engine
+    restart: unless-stopped
+    env_file: ./engine/.env
+    environment:
+      STATE_DIR: /state
+      PUBLISH_DIR: /data
+    volumes:
+      - pfx-state:/state
+      - pfx-data:/data
+    # SIGTERM lets the engine finish an in-flight epoch; give it time before SIGKILL.
+    stop_grace_period: 10m
+    logging:
+      driver: json-file
+      options: { max-size: "20m", max-file: "5" }
+
+  web:
+    image: caddy:2.8.4
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./web/index.html:/srv/index.html:ro
+      - pfx-data:/srv/data:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on: [engine]
+
+volumes:
+  pfx-state: {}
+  pfx-data: {}
+  caddy-data: {}
+  caddy-config: {}

@@ -18,6 +18,12 @@ function bool(name: string, fallback: boolean): boolean {
   return ["1", "true", "yes", "on"].includes(raw.toLowerCase());
 }
 
+/** Blank values in .env (e.g. `JUP_API_BASE=`) count as unset. */
+function str(name: string, fallback = ""): string {
+  const raw = process.env[name]?.trim();
+  return raw ? raw : fallback;
+}
+
 function list(name: string): string[] {
   return (process.env[name] ?? "")
     .split(",")
@@ -54,10 +60,10 @@ export interface HolderRules {
 }
 
 export const config = {
-  rpcUrl: process.env.RPC_URL ?? "https://api.mainnet-beta.solana.com",
-  keeperSecret: process.env.KEEPER_SECRET_KEY ?? "",
-  keeperKeypairPath: process.env.KEEPER_KEYPAIR_PATH ?? "",
-  pfxMint: process.env.PFX_MINT ?? "",
+  rpcUrl: str("RPC_URL", "https://api.mainnet-beta.solana.com"),
+  keeperSecret: str("KEEPER_SECRET_KEY", ""),
+  keeperKeypairPath: str("KEEPER_KEYPAIR_PATH", ""),
+  pfxMint: str("PFX_MINT", ""),
   dryRun: bool("DRY_RUN", true),
   dryRunBudgetSol: num("DRY_RUN_BUDGET_SOL", 1),
 
@@ -66,7 +72,7 @@ export const config = {
   snapshotMinutes: num("SNAPSHOT_MINUTES", 5),
 
   indexSize: num("INDEX_SIZE", 5),
-  weighting: (process.env.INDEX_WEIGHTING ?? "equal") as Weighting,
+  weighting: (str("INDEX_WEIGHTING", "equal")) as Weighting,
   maxWeight: num("INDEX_MAX_WEIGHT", 0.4),
   candidatePool: num("CANDIDATE_POOL", 100),
   blacklist: list("INDEX_BLACKLIST"),
@@ -96,17 +102,51 @@ export const config = {
   slippageBps: num("SLIPPAGE_BPS", 300),
   priorityMicroLamports: num("PRIORITY_MICROLAMPORTS", 50_000),
   /** Allocations worth less than this are not sent; they roll into the next epoch. */
-  minAllocationUsd: num("MIN_ALLOCATION_USD", 0.25),
+  minAllocationUsd: num("MIN_ALLOCATION_USD", 0.5),
   airdropBatch: num("AIRDROP_BATCH", 5),
 
-  creatorFeePool: process.env.CREATOR_FEE_POOL ?? "pump",
+  /** Hard cap on SOL spent buying the index in one epoch. */
+  maxBuySolPerEpoch: num("MAX_BUY_SOL_PER_EPOCH", 5),
+  /** Skip a buy whose quoted price impact is above this. */
+  maxPriceImpactPct: num("MAX_PRICE_IMPACT_PCT", 3),
+  /** A brand-new token account costs rent; only open one if the drop is worth this many times the rent. */
+  newAccountValueMultiple: num("NEW_ACCOUNT_VALUE_MULTIPLE", 2),
+  /** Never let an airdrop take the keeper below this many lamports. */
+  gasFloorLamports: Math.round(num("GAS_FLOOR_SOL", 0.02) * 1e9),
+
+  creatorFeePool: str("CREATOR_FEE_POOL", "pump"),
   claimFees: bool("CLAIM_FEES", true),
 
-  jupApi: process.env.JUP_API_BASE ?? "https://lite-api.jup.ag",
-  jupApiKey: process.env.JUP_API_KEY ?? "",
+  jupApiKey: str("JUP_API_KEY", ""),
+  jupApi: str("JUP_API_BASE", str("JUP_API_KEY") ? "https://api.jup.ag" : "https://lite-api.jup.ag"),
 
-  stateDir: path.resolve(root, process.env.STATE_DIR ?? "state"),
-  publishDir: path.resolve(root, process.env.PUBLISH_DIR ?? "../web/data"),
+  /** Settle nothing while true (or while state/PAUSE exists). Snapshots keep running. */
+  paused: bool("PAUSED", false),
+
+  discordWebhook: str("DISCORD_WEBHOOK_URL", ""),
+  telegramToken: str("TELEGRAM_BOT_TOKEN", ""),
+  telegramChatId: str("TELEGRAM_CHAT_ID", ""),
+
+  stateDir: path.resolve(root, str("STATE_DIR", "state")),
+  publishDir: path.resolve(root, str("PUBLISH_DIR", "../web/data")),
 };
 
 export type Config = typeof config;
+
+/** Refuse to start on settings that would misbehave with real money. */
+export function validateConfig(cfg: Config): void {
+  const errors: string[] = [];
+  if (!["equal", "mcap"].includes(cfg.weighting)) errors.push(`INDEX_WEIGHTING must be "equal" or "mcap"`);
+  if (cfg.epochMinutes < 5) errors.push("EPOCH_MINUTES must be at least 5");
+  if (cfg.snapshotMinutes <= 0 || cfg.snapshotMinutes >= cfg.epochMinutes) errors.push("SNAPSHOT_MINUTES must be between 0 and EPOCH_MINUTES");
+  if (cfg.buyShare <= 0 || cfg.buyShare > 1) errors.push("BUY_SHARE must be in (0, 1]");
+  if (cfg.indexSize < 1 || cfg.indexSize > 20) errors.push("INDEX_SIZE must be 1-20");
+  if (cfg.airdropBatch < 1 || cfg.airdropBatch > 6) errors.push("AIRDROP_BATCH must be 1-6 (bigger batches exceed the tx size limit)");
+  if (cfg.slippageBps <= 0 || cfg.slippageBps > 2_000) errors.push("SLIPPAGE_BPS must be 1-2000");
+  if (!cfg.dryRun) {
+    if (!cfg.keeperSecret && !cfg.keeperKeypairPath) errors.push("Live mode needs KEEPER_SECRET_KEY or KEEPER_KEYPAIR_PATH");
+    if (!cfg.pfxMint) errors.push("Live mode needs PFX_MINT");
+    if (cfg.rpcUrl.includes("api.mainnet-beta.solana.com")) errors.push("Live mode needs a paid RPC_URL (the public RPC rate-limits snapshots)");
+  }
+  if (errors.length) throw new Error(`Invalid configuration:\n  - ${errors.join("\n  - ")}`);
+}

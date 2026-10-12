@@ -5,22 +5,24 @@
   "description": "PFX — Pump.fun Index engine. Buys the top 5 pump.fun coins and airdrops them to diamond-hand holders every 45 minutes.",
   "type": "module",
   "scripts": {
-    "start": "tsx src/main.ts run",
+    "start": "node --import tsx src/main.ts run",
     "epoch": "tsx src/main.ts epoch",
     "snapshot": "tsx src/main.ts snapshot",
     "index": "tsx src/main.ts index",
+    "preflight": "tsx src/main.ts preflight",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:chain": "tsx test/chain/airdrop.simulate.ts"
   },
   "dependencies": {
     "@solana/spl-token": "^0.4.13",
     "@solana/web3.js": "^1.98.4",
     "bs58": "^6.0.0",
-    "dotenv": "^16.6.1"
+    "dotenv": "^16.6.1",
+    "tsx": "^4.20.0"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",
-    "tsx": "^4.20.0",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   },

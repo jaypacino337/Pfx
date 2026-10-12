@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>PFX HQ</title>
 <meta name="description" content="PFX buys the top 5 pump.fun coins and airdrops them to diamond-hand holders every 45 minutes.">
+<meta property="og:title" content="PFX · the Pump.fun Index">
+<meta property="og:description" content="Hold PFX. Get the top 5 pump.fun coins airdropped every 45 minutes. Sell during an epoch and you forfeit the drop.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0c0f14">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230c0f14'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23242d39' stroke-width='6'/%3E%3Cpath d='M32 12a20 20 0 0 1 17.3 30' fill='none' stroke='%238d9cff' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap">
@@ -105,6 +111,17 @@ h2 { font-size: 1.35rem; font-weight: 700; }
 .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin-top: 24px; }
 .stat { background: var(--panel); padding: 14px 16px; display: grid; gap: 6px; }
 .stat .v { font: 500 1.25rem/1.1 var(--mono); font-variant-numeric: tabular-nums; }
+
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.cta a { display: inline-flex; align-items: center; gap: 8px; font: 600 0.9rem/1 var(--body); padding: 12px 16px; border-radius: 10px; border: 1px solid var(--line); color: var(--fg); background: var(--panel); }
+.cta a:hover { text-decoration: none; border-color: var(--accent); }
+.cta a.primary { background: var(--accent); color: var(--ink); border-color: var(--accent); }
+.chip.paused .dot { background: var(--bad); }
+.proof { padding: 16px 18px; display: grid; gap: 12px; }
+.proof-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font-size: 0.86rem; }
+.proof-row b { font-family: var(--display); font-weight: 700; min-width: 90px; }
+.proof-row .tx { font: 500 0.72rem/1 var(--mono); }
+.notes { margin: 0; padding-left: 18px; color: var(--muted); font-size: 0.82rem; display: grid; gap: 4px; }
 
 /* Sections */
 section.block { display: grid; gap: 16px; }
@@ -234,6 +251,11 @@ footer { color: var(--muted); font-size: 0.8rem; display: flex; flex-wrap: wrap;
       <div class="eyebrow">The Pump.fun Index</div>
       <h1 style="margin-top:10px">Hold PFX. Get the top 5 pump.fun coins <em>every 45 minutes.</em></h1>
       <p>Each epoch the engine claims PFX creator fees, buys the five strongest pump.fun coins, and airdrops them to every wallet that held through the whole epoch. Sell during an epoch and you forfeit that epoch's drop. Bot-pumped coins are screened out before anything is bought.</p>
+      <div class="cta">
+        <a class="primary" id="buyLink" href="#" target="_blank" rel="noopener" hidden>Buy PFX on pump.fun ↗</a>
+        <a href="#check">Check your wallet</a>
+        <a id="treasuryLink" href="#" target="_blank" rel="noopener" hidden>Treasury on Solscan ↗</a>
+      </div>
       <div class="stats">
         <div class="stat"><span class="eyebrow">Airdrops</span><span class="v" id="sDrops">—</span></div>
         <div class="stat"><span class="eyebrow">Airdropped</span><span class="v" id="sValue">—</span></div>
@@ -320,6 +342,7 @@ footer { color: var(--muted); font-size: 0.8rem; display: flex; flex-wrap: wrap;
         <tbody id="logRows"></tbody>
       </table>
     </div>
+    <div class="panel proof" id="proof" hidden></div>
   </section>
 
   <section class="block">
@@ -428,8 +451,16 @@ footer { color: var(--muted); font-size: 0.8rem; display: flex; flex-wrap: wrap;
   function render() {
     const d = data;
     const live = d.mode === "live";
-    $("modeChip").className = "chip " + (live ? "live" : "dry");
-    $("modeText").textContent = live ? "LIVE" : "DRY RUN";
+    $("modeChip").className = "chip " + (d.paused ? "paused" : live ? "live" : "dry");
+    $("modeText").textContent = d.paused ? "PAUSED" : live ? "LIVE" : "DRY RUN";
+    if (d.pfxMint) {
+      $("buyLink").href = "https://pump.fun/coin/" + encodeURIComponent(d.pfxMint);
+      $("buyLink").hidden = false;
+    }
+    if (d.keeper) {
+      $("treasuryLink").href = "https://solscan.io/account/" + encodeURIComponent(d.keeper);
+      $("treasuryLink").hidden = false;
+    }
     $("epochChip").textContent = "Epoch " + d.epoch;
     if (d.pfxMint) $("mintBtn").textContent = "CA: " + short(d.pfxMint);
     $("footUpdated").textContent = "Engine data " + new Date(d.updatedAt).toLocaleString();
@@ -541,6 +572,21 @@ footer { color: var(--muted); font-size: 0.8rem; display: flex; flex-wrap: wrap;
         <td>${basket}</td><td class="num">${(x.solSpent || 0).toFixed(3)}</td><td class="num">${usd(x.valueUsd || 0)}</td>
         <td class="num">${num(x.recipients)}</td><td class="num">${num(x.forfeited)}</td></tr>`;
     }).join("") : `<tr><td colspan="7" class="empty">No epochs settled yet.</td></tr>`;
+
+    const proof = $("proof");
+    const tx = (sig, label) => `<a class="tx" href="https://solscan.io/tx/${encodeURIComponent(sig)}" target="_blank" rel="noopener">${label} ↗</a>`;
+    if (last && last.mode === "live" && last.tokens.length) {
+      proof.hidden = false;
+      proof.innerHTML = `<div class="eyebrow">Epoch #${last.epoch} on chain</div>` +
+        last.tokens.map((t) => `<div class="proof-row"><b>${esc(t.symbol)}</b>
+          <span class="muted">${num(t.amountUi, 2)} to ${num(t.recipients)} wallets</span>
+          ${t.buySignature ? tx(t.buySignature, "buy") : ""}
+          ${t.signatures.slice(0, 3).map((s, i) => tx(s, "airdrop " + (i + 1))).join(" ")}
+          ${t.signatures.length > 3 ? `<span class="muted mono" style="font-size:.72rem">+${t.signatures.length - 3} more</span>` : ""}</div>`).join("") +
+        (last.notes?.length ? `<ul class="notes">${last.notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>` : "");
+    } else {
+      proof.hidden = true;
+    }
   }
 
   /* ---------- Wallet check ---------- */

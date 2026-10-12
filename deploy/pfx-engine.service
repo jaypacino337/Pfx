@@ -1,0 +1,26 @@
+# systemd alternative to Docker.
+#   sudo useradd --system --home /opt/pfx pfx
+#   sudo cp deploy/pfx-engine.service /etc/systemd/system/ && sudo systemctl enable --now pfx-engine
+#   journalctl -u pfx-engine -f
+[Unit]
+Description=PFX engine (pump.fun index + 45 min airdrops)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=pfx
+WorkingDirectory=/opt/pfx/engine
+EnvironmentFile=/opt/pfx/engine/.env
+ExecStart=/usr/bin/node --import tsx src/main.ts run
+Restart=always
+RestartSec=15
+# SIGTERM: the engine finishes the current step (never half an airdrop), then exits.
+KillSignal=SIGTERM
+TimeoutStopSec=600
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/pfx/engine/state /opt/pfx/web/data
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

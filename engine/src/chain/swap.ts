@@ -35,6 +35,10 @@ export async function buyWithSol(
   lamports: number,
 ): Promise<{ signature: string; quote: Quote }> {
   const quote = await quoteBuy(cfg, outputMint, lamports);
+  const impactPct = Number(quote.priceImpactPct) * 100; // Jupiter reports a fraction
+  if (impactPct > cfg.maxPriceImpactPct) {
+    throw new Error(`price impact ${impactPct.toFixed(2)}% > ${cfg.maxPriceImpactPct}% cap`);
+  }
   const res = await fetch(`${cfg.jupApi}/swap/v1/swap`, {
     method: "POST",
     headers: headers(cfg),

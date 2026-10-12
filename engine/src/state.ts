@@ -13,6 +13,10 @@ export interface TokenDrop {
   amountUi: number;
   valueUsd: number;
   recipients: number;
+  /** Token accounts the keeper opened (and paid rent for) this drop. */
+  newAccounts: number;
+  /** Holders whose share was too small to justify opening an account; rolls over. */
+  skippedSmall: number;
   rolledOverUi: number;
   buySignature?: string;
   signatures: string[];
@@ -28,10 +32,18 @@ export interface EpochReport {
   solUsd: number;
   /** USD value of the index tokens bought this epoch. */
   boughtUsd: number;
+  rentSol: number;
   recipients: number;
   forfeited: number;
   valueUsd: number;
   tokens: TokenDrop[];
+  notes: string[];
+}
+
+export interface HeldToken {
+  mint: string;
+  symbol: string;
+  image: string;
 }
 
 export interface HiddenCoin {
@@ -55,6 +67,7 @@ export interface Latest {
   project: "PFX";
   updatedAt: number;
   mode: "live" | "dry";
+  paused: boolean;
   epochMinutes: number;
   genesisMs: number;
   epoch: number;
@@ -83,6 +96,9 @@ export interface EngineState {
   snapshots: Snapshot[];
   reports: EpochReport[];
   lastReceived?: Record<string, WalletEntry["received"]>;
+  /** Index tokens the keeper may still hold; airdropped until empty, even after leaving the basket. */
+  held?: HeldToken[];
+  holdersSummary?: Record<string, number>;
 }
 
 export function epochAt(cfg: Config, now = Date.now()) {
@@ -116,10 +132,6 @@ export function loadState(cfg: Config): EngineState {
 
 export function saveState(cfg: Config, s: EngineState): void {
   writeJson(path.join(cfg.stateDir, "engine.json"), { ...s, reports: s.reports.slice(-200) });
-}
-
-export function readLatest(cfg: Config): Partial<Latest> {
-  return readJson<Partial<Latest>>(path.join(cfg.publishDir, "latest.json"), {});
 }
 
 export function publishLatest(cfg: Config, latest: Latest): void {
